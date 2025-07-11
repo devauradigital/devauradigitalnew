@@ -345,9 +345,9 @@
       align-items: center;
       justify-content: space-between;
       width: 100%;
-      padding: 1.5rem;
+      padding: 1rem;
       background: transparent;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.2s ease;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
     }
@@ -364,19 +364,17 @@
     .faq-answer {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
-      opacity: 0;
-      border-radius: 1px;
-      padding: 0 1.5rem;
+      transition: max-height 0.2s ease-out;
+      opacity: 1;
+      padding: 0 1rem;
       background: transparent;
     }
     .faq-answer.open {
-      max-height: 500px; /* Increased for mobile content */
-      opacity: 1;
-      padding: 1rem 1.5rem;
+      max-height: 300px;
+      padding: 1rem;
     }
     .faq-toggle {
-      transition: transform 0.3s ease;
+      transition: transform 0.2s ease;
     }
     .faq-toggle.open {
       transform: rotate(45deg);
@@ -799,16 +797,6 @@
         return () => clearInterval(interval);
       }, [totalItems]);
 
-      const handlePrev = () => {
-        setCurrentIndex((prevIndex) => (prevIndex - 1 + totalItems) % totalItems);
-        setIsTransitioning(true);
-      };
-
-      const handleNext = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % totalItems);
-        setIsTransitioning(true);
-      };
-
       const handleTouchStart = (e) => {
         touchStartX.current = e.touches[0].clientX;
       };
@@ -820,9 +808,11 @@
       const handleTouchEnd = () => {
         const swipeDistance = touchStartX.current - touchEndX.current;
         if (swipeDistance > 50) {
-          handleNext();
+          setCurrentIndex((prevIndex) => (prevIndex + 1) % totalItems);
+          setIsTransitioning(true);
         } else if (swipeDistance < -50) {
-          handlePrev();
+          setCurrentIndex((prevIndex) => (prevIndex - 1 + totalItems) % totalItems);
+          setIsTransitioning(true);
         }
       };
 
@@ -855,24 +845,6 @@
                   </div>
                 ))}
               </div>
-              <button
-                onClick={handlePrev}
-                className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-purple-500 text-white p-3 rounded-full hover:bg-purple-700 md:left-[-3rem]"
-                aria-label="Previous testimonial"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                onClick={handleNext}
-                className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-purple-500 text-white p-3 rounded-full hover:bg-purple-700 md:right-[-3rem]"
-                aria-label="Next testimonial"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
               <div className="flex justify-center mt-4 space-x-2">
                 {data.testimonials.map((_, index) => (
                   <button
