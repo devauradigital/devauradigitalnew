@@ -287,18 +287,19 @@
     .carousel-track {
       display: flex;
       transition: transform 0.5s ease;
+      touch-action: pan-y pinch-zoom;
     }
     .carousel-track.no-transition {
       transition: none;
     }
     .carousel-item {
-      flex: 0 0 33.3333%;
+      flex: 0 0 100%;
       padding: 0 10px;
       transition: opacity 0.3s ease;
     }
-    @media (max-width: 767px) {
+    @media (min-width: 768px) {
       .carousel-item {
-        flex: 0 0 100%;
+        flex: 0 0 33.3333%;
       }
     }
     .carousel-item.left {
@@ -347,6 +348,8 @@
       padding: 1.5rem;
       background: transparent;
       transition: background-color 0.3s ease;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
     }
     .faq-button:hover {
       background: rgba(255, 255, 255, 0.02);
@@ -356,6 +359,7 @@
       display: flex;
       justify-content: left;
       align-items: center;
+      text-align: left;
     }
     .faq-answer {
       max-height: 0;
@@ -367,7 +371,7 @@
       background: transparent;
     }
     .faq-answer.open {
-      max-height: 200px; /* Adjust as needed for content */
+      max-height: 500px; /* Increased for mobile content */
       opacity: 1;
       padding: 1rem 1.5rem;
     }
@@ -435,7 +439,6 @@
         { quote: "The Website looks Lovely and very interactive.", author: "Saintstan", role: "Owner, Big Dream Farm" }
       ],
       faqs: [
-        
         { question: "What types of websites can DevAura build?", answer: "We specialize in a wide range of websites, including eCommerce platforms with payment integration, corporate websites that showcase your business professionally, personal and creative portfolios, and fully custom web applications tailored to your specific industry needs. Whether you're a startup, small business, or enterprise, we build scalable and user-friendly digital solutions."},
         { question: "Can DevAura help improve my website's SEO?", answer: "Absolutely! Our SEO services include in-depth keyword research, technical SEO audits, on-page optimization (meta tags, headings, content structure), link-building strategies, and performance tracking using tools like Google Analytics and Search Console. We focus on both short-term visibility and long-term ranking growth."},
         { question: "How long does it take to develop a custom website solution?", answer: "The timeline depends on the scope and complexity of the project. On average, a custom website takes 1 to 3 months, which includes planning, design, development, testing, and revisions. We provide weekly progress updates and collaborate closely with you throughout the development process." },
@@ -781,32 +784,15 @@
     );
 
     const Testimonials = () => {
-      const [currentIndex, setCurrentIndex] = useState(2);
+      const [currentIndex, setCurrentIndex] = useState(0);
       const [isTransitioning, setIsTransitioning] = useState(true);
       const touchStartX = useRef(0);
       const touchEndX = useRef(0);
       const totalItems = data.testimonials.length;
-      const extendedTestimonials = [
-        data.testimonials[totalItems - 2],
-        data.testimonials[totalItems - 1],
-        ...data.testimonials,
-        data.testimonials[0],
-        data.testimonials[1]
-      ];
-      const totalExtendedItems = extendedTestimonials.length;
 
       useEffect(() => {
         const interval = setInterval(() => {
-          setCurrentIndex((prevIndex) => {
-            if (prevIndex >= totalItems + 1) {
-              setTimeout(() => {
-                setIsTransitioning(false);
-                setCurrentIndex(2);
-              }, 500);
-              return prevIndex + 1;
-            }
-            return prevIndex + 1;
-          });
+          setCurrentIndex((prevIndex) => (prevIndex + 1) % totalItems);
           setIsTransitioning(true);
         }, 3000);
 
@@ -814,30 +800,12 @@
       }, [totalItems]);
 
       const handlePrev = () => {
-        setCurrentIndex((prevIndex) => {
-          if (prevIndex <= 1) {
-            setTimeout(() => {
-              setIsTransitioning(false);
-              setCurrentIndex(totalItems);
-            }, 500);
-            return prevIndex - 1;
-          }
-          return prevIndex - 1;
-        });
+        setCurrentIndex((prevIndex) => (prevIndex - 1 + totalItems) % totalItems);
         setIsTransitioning(true);
       };
 
       const handleNext = () => {
-        setCurrentIndex((prevIndex) => {
-          if (prevIndex >= totalItems + 1) {
-            setTimeout(() => {
-              setIsTransitioning(false);
-              setCurrentIndex(2);
-            }, 500);
-            return prevIndex + 1;
-          }
-          return prevIndex + 1;
-        });
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % totalItems);
         setIsTransitioning(true);
       };
 
@@ -858,16 +826,6 @@
         }
       };
 
-      const getItemClass = (index, currentIndex) => {
-        const prevIndex = currentIndex - 1;
-        const nextIndex = currentIndex + 1;
-
-        if (index === prevIndex) return 'carousel-item left';
-        if (index === currentIndex) return 'carousel-item center';
-        if (index === nextIndex) return 'carousel-item right';
-        return 'carousel-item hidden';
-      };
-
       return (
         <section id="testimonials" className="py-20" style={{ backgroundColor: '#18043C' }}>
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -882,12 +840,12 @@
             >
               <div
                 className={`carousel-track ${!isTransitioning ? 'no-transition' : ''}`}
-                style={{ transform: `translateX(-${(currentIndex - 1) * 33.3333}%)` }}
+                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
               >
-                {extendedTestimonials.map((testimonial, index) => (
+                {data.testimonials.map((testimonial, index) => (
                   <div
                     key={index}
-                    className={getItemClass(index, currentIndex)}
+                    className="carousel-item"
                   >
                     <div className="p-6 rounded-xl shadow-lg glass-card h-full">
                       <p className="text-gray-300 text-base mb-4 italic">"{testimonial.quote}"</p>
@@ -899,7 +857,7 @@
               </div>
               <button
                 onClick={handlePrev}
-                className="absolute top-1/2 left-[-3rem] transform -translate-y-1/2 bg-purple-500 text-white p-3 rounded-full hover:bg-purple-700"
+                className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-purple-500 text-white p-3 rounded-full hover:bg-purple-700 md:left-[-3rem]"
                 aria-label="Previous testimonial"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -908,7 +866,7 @@
               </button>
               <button
                 onClick={handleNext}
-                className="absolute top-1/2 right-[-3rem] transform -translate-y-1/2 bg-purple-500 text-white p-3 rounded-full hover:bg-purple-700"
+                className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-purple-500 text-white p-3 rounded-full hover:bg-purple-700 md:right-[-3rem]"
                 aria-label="Next testimonial"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -920,11 +878,11 @@
                   <button
                     key={index}
                     className={`w-3 h-3 rounded-full ${
-                      index === ((currentIndex - 2 + totalItems) % totalItems) ? 'bg-purple-400' : 'bg-gray-500'
+                      index === currentIndex ? 'bg-purple-400' : 'bg-gray-500'
                     }`}
                     onClick={() => {
                       setIsTransitioning(true);
-                      setCurrentIndex(index + 2);
+                      setCurrentIndex(index);
                     }}
                     aria-label={`Go to testimonial ${index + 1}`}
                   ></button>
@@ -959,11 +917,12 @@
                   <button
                     className="faq-button"
                     onClick={() => toggleFAQ(index)}
+                    onTouchStart={() => toggleFAQ(index)}
                     aria-expanded={openIndex === index}
                     aria-controls={`faq-answer-${index}`}
                   >
                     <div className="faq-question-container">
-                      <h3 className="text-xl font-semibold text-purple-400">{faq.question}</h3>
+                      <h3 className="text-lg font-semibold text-purple-400">{faq.question}</h3>
                     </div>
                     <svg
                       className={`w-6 h-6 text-purple-400 faq-toggle ${openIndex === index ? 'open' : ''}`}
