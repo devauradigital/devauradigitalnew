@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevAura Digital: Website, Software, SEO & Marketing</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="canonical" href="https://www.devauradigital.com">
+  <meta name="description" content="DevAura Digital provides expert website development, software solutions, SEO, and digital marketing to boost your business. Contact DevAura today!">
+  <meta name="keywords" content="DevAura, DevAura Digital, website development, software development, SEO, digital marketing, web design, eCommerce, UI/UX, custom software">
+  <meta name="author" content="DevAura Digital">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="DevAura Digital: Website, Software, SEO & Marketing">
+  <meta property="og:description" content="DevAura Digital empowers businesses with innovative website development, software, SEO, and digital marketing. Contact us today!">
+  <meta property="og:image" content="devauralogo.png">
+  <meta property="og:url" content="https://www.devauradigital.com">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DevAura Digital: Website, Software, SEO & Marketing">
+  <meta name="twitter:description" content="Transform your business with DevAura Digital's expert website, software, SEO, and marketing services.">
+  <meta name="twitter:image" content="devauralogo.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "DevAura Digital",
+    "url": "https://www.devauradigital.com",
+    "logo": "https://www.devauradigital.com/devauralogo.png",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+91-7859966310",
+      "contactType": "customer service",
+      "email": "devauradigital@gmail.com"
+    },
+    "sameAs": [
+      "https://www.instagram.com/devauradigital",
+      "https://wa.me/917859966310"
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap">
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.5/babel.min.js" defer></script>
+  <script src="https://cdn.tailwindcss.com" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js" defer></script>
+  <style>
+    html {
+      scroll-behavior: auto;
+      scroll-padding-top: 80px;
+    }
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #18043C;
+    }
+    h1, h2, h3 {
+      font-family: 'Outfit', sans-serif;
+    }
+    .animate-slide-in {
+      animation: slideIn 0.8s ease-out forwards;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-slide-in-delay-0 { animation-delay: 0s; }
+    .animate-slide-in-delay-1 { animation-delay: 0.2s; }
+    .animate-slide-in-delay-2 { animation-delay: 0.4s; }
+    .animate-slide-in-delay-3 { animation-delay: 0.6s; }
+    .animate-slide-in-delay-4 { animation-delay: 0.8s; }
+    .animate-slide-in-delay-5 { animation-delay: 1.0s; }
+    .animate-slide-in-delay-6 { animation-delay: 1.2s; }
+    .animate-slide-in-delay-7 { animation-delay: 1.4s; }
+    .hover-scale {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hover-scale:hover {
+      transform: scale(1.05) rotate(1deg);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+    .mobile-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: rgba(31, 41, 55, 0.7);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 100;
+      opacity: 0;
+      transform: translateY(-10%);
+      transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    }
+    .menu-visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .menu-hidden {
+      transform: translateY(-10px);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .typing-text::after {
+      content: '|';
+      animation: blink 0.7s infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: #a855f7;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    .dropdown {
+      position: relative;
+    }
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: rgba(64, 0, 116, 0.313);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform .2s ease;
+      z-index: 100;
+      min-width: 200px;
+      pointer-events: none;
+    }
+    .dropdown:hover .dropdown-menu {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .dropdown-menu a {
+      display: block;
+      padding: 0.75rem 1.5rem;
+      color: #e8e8e8;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      border-radius: 1rem;
+    }
+    .dropdown-menu a:hover {
+      background-color: rgba(141, 92, 255, 0.2);
+      color: #a066ff;
+      border-radius: 1rem;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+    }
+    @media (max-width: 639px) {
+      .glass-card {
+        backdrop-filter: none;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+    }
+    .project-overlay, .service-overlay {
+      opacity: 0;
+      background: linear-gradient(to top, rgba(48, 0, 116, 0.4), transparent);
+      transition: opacity 0.3s ease;
+    }
+    .project:hover .project-overlay, .service:hover .service-overlay {
+      opacity: 1;
+    }
+    .gradient-btn {
+      background: linear-gradient(to right, #a855f7, #f97316);
+      transition: background 0.3s ease;
+    }
+    .gradient-btn:hover {
+      background: linear-gradient(to right, #9333ea, #f59e0b);
+    }
+    .social-icon {
+      transition: transform 0.1s ease, background-color 0.3s ease;
+      border-radius: 50%;
+    }
+    .social-icon:hover {
+      transform: scale(1.2);
+      background-color: rgba(168, 85, 247, 0.2);
+      border-radius: 50%;
+    }
+    .form-input:focus {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(168, 85, 247, 0.3);
+    }
+    .service-image-container {
+      width: 100%;
+      height: 120px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .service-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+    @media (min-width: 640px) {
+      .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (min-width: 1024px) {
+      .services-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-rows: auto auto;
+      }
+      .services-grid .row-2 {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        grid-column: 1 / -1;
+      }
+      .services-grid .row-2 > a {
+        flex: 0 1 auto;
+        width: 33.3333%;
+        max-width: 400px;
+      }
+    }
+    @media (max-width: 639px) {
+      .services-grid .row-2 {
+        display: contents;
+      }
+    }
+    .glass-nav {
+      background: transparent;
+      transition: background-color 0.3s ease;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      width: 100%;
+    }
+    .glass-nav.scrolled {
+      background: rgba(45, 0, 101, 0.37);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    @media (max-width: 767px) {
+      .glass-nav {
+        backdrop-filter: none;
+        background: transparent;
+      }
+      .glass-nav.scrolled {
+        background: rgba(0, 0, 0, 0.34);
+      }
+    }
+    .footer-glass {
+      background: #1b0543;
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .footer-link {
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .footer-link:hover {
+      color: #a855f7;
+      transform: translateX(5px);
+      transform: scale(1.2);
+    }
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    .carousel-track.no-transition {
+      transition: none;
+    }
+    .carousel-item {
+      flex: 0 0 33.3333%;
+      padding: 0 10px;
+      transition: opacity 0.3s ease;
+    }
+    @media (max-width: 767px) {
+      .carousel-item {
+        flex: 0 0 100%;
+      }
+    }
+    .carousel-item.left {
+      opacity: 0.5;
+    }
+    .carousel-item.center {
+      opacity: 1;
+    }
+    .carousel-item.right {
+      opacity: 0.5;
+    }
+    .carousel-item.hidden {
+      display: none;
+    }
+    @media (min-width: 768px) {
+      .carousel-item.hidden {
+        display: block;
+      }
+    }
+    .faq-container {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+    @media (max-width: 639px) {
+      .faq-container {
+        backdrop-filter: none;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+    }
+    .faq-item {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+    .faq-button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 1.5rem;
+      background: transparent;
+      transition: background-color 0.3s ease;
+    }
+    .faq-button:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .faq-question-container {
+      flex-grow: 1;
+      display: flex;
+      justify-content: left;
+      align-items: center;
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
+      opacity: 0;
+      border-radius: 1px;
+      padding: 0 1.5rem;
+      background: transparent;
+    }
+    .faq-answer.open {
+      max-height: 200px; /* Adjust as needed for content */
+      opacity: 1;
+      padding: 1rem 1.5rem;
+    }
+    .faq-toggle {
+      transition: transform 0.3s ease;
+    }
+    .faq-toggle.open {
+      transform: rotate(45deg);
+    }
+    .logo-img {
+      height: 2.5rem;
+      width: auto;
+    }
+    @media (max-width: 767px) {
+      .logo-img {
+        height: 2rem;
+      }
+    }
+  </style>
+</head>
+<body class="text-gray-200">
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+    const { createRoot } = ReactDOM;
+
+    const data = {
+      phoneNumber: "+917859966310",
+      services: [
+        {
+          title: "Website Development",
+          desc: "Custom websites and robust eCommerce platforms to boost your online presence.",
+          icon: "images/website.webp"
+        },
+        {
+          title: "Software Development",
+          desc: "Bespoke software solutions tailored to optimize your business processes.",
+          icon: "images/software.webp"
+        },
+        {
+          title: "Digital Marketing",
+          desc: "Strategic campaigns to enhance your brand's reach and engagement.",
+          icon: "images/digital marketing.webp"
+        },
+        {
+          title: "Search Engine Optimization",
+          desc: "Optimize your website to rank higher and attract more traffic.",
+          icon: "images/seo.webp"
+        },
+        {
+          title: "UI/UX Design",
+          desc: "Intuitive and engaging designs for seamless user experiences.",
+          icon: "images/uiux.webp"
+        }
+      ],
+      projects: [
+        { name: "Law Firm Website", desc: "A professional website for a law firm showcasing their services.", img: "images/law.webp", link: "https://ypsyouknow.github.io/sonilawyers/" },
+        { name: "Resort Website Demo", desc: "A website for Resort with booking facility and with dynamic interface.", img: "images/resort.webp", link: "https://devauradigital.github.io/resort/#home" },
+        { name: "Demolition Company Website", desc: "A website for a demolition company highlighting their projects.", img: "https://images.pexels.com/photos/159306/construction-site-build-construction-work-159306.jpeg", link: "https://www.demolitionexperts.in/" }
+      ],
+      testimonials: [
+        { quote: "DevAura transformed our online presence with a stunning website that perfectly captures our brand.", author: "Pankaj Soni", role: "Owner, Soni Lawyers " },
+        { quote: "Our online presence has never been stronger—DevAura delivered a visually stunning and strategically crafted website.", author: "Anthony", role: "Owner, AGS London Gardner" },
+        { quote: "The tailored software developed by DevAura significantly enhanced the way we manage our day-to-day operations.", author: "Gaurang Vora", role: "Owner, Gaurang Vora and Associates" },
+        { quote: "The Website looks Lovely and very interactive.", author: "Saintstan", role: "Owner, Big Dream Farm" }
+      ],
+      faqs: [
+        
+        { question: "What types of websites can DevAura build?", answer: "We specialize in a wide range of websites, including eCommerce platforms with payment integration, corporate websites that showcase your business professionally, personal and creative portfolios, and fully custom web applications tailored to your specific industry needs. Whether you're a startup, small business, or enterprise, we build scalable and user-friendly digital solutions."},
+        { question: "Can DevAura help improve my website's SEO?", answer: "Absolutely! Our SEO services include in-depth keyword research, technical SEO audits, on-page optimization (meta tags, headings, content structure), link-building strategies, and performance tracking using tools like Google Analytics and Search Console. We focus on both short-term visibility and long-term ranking growth."},
+        { question: "How long does it take to develop a custom website solution?", answer: "The timeline depends on the scope and complexity of the project. On average, a custom website takes 1 to 3 months, which includes planning, design, development, testing, and revisions. We provide weekly progress updates and collaborate closely with you throughout the development process." },
+        { question: "Do you offer ongoing support after project completion?", answer: "Yes, we offer monthly maintenance and support plans that include security updates, bug fixes, performance optimization, content updates, and technical assistance. This ensures your website stays up-to-date, fast, and secure even after launch." },
+        { question: "What is the cost of developing a website or software with DevAura?", answer: "The cost varies based on the type of project, the number of pages, required features (like booking systems, payment gateways, etc.), and custom integrations. We offer flexible pricing starting from budget-friendly basic packages to full-featured enterprise solutions. A free consultation will help us understand your needs and provide a customized quote." },
+        { question: "Can DevAura assist with digital marketing for my business?", answer: "Yes, we provide end-to-end digital marketing solutions to grow your online presence. Our services include advanced SEO, content marketing strategies, social media management, paid ads setup (Google & Meta), professional graphic design, business cards, and brand kits. We aim to build visibility, trust, and conversions for your brand." },
+      ]
+    };
+
+    const smoothScrollTo = (targetY, duration = 1200) => {
+      const startY = window.scrollY;
+      const distance = targetY - startY;
+      const startTime = performance.now();
+
+      const easeInOutQuad = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+
+      const scroll = (currentTime) => {
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        const ease = easeInOutQuad(progress);
+        window.scrollTo(0, startY + distance * ease);
+
+        if (progress < 1) {
+          requestAnimationFrame(scroll);
+        }
+      };
+
+      requestAnimationFrame(scroll);
+    };
+
+    const NavBar = () => {
+      const [isMenuOpen, setIsMenuOpen] = useState(false);
+      const [currentSection, setCurrentSection] = useState('home');
+      const menuRef = useRef(null);
+      const touchStartY = useRef(0);
+      const isSwiping = useRef(false);
+
+      const toggleMenu = (e) => {
+        if (e) e.stopPropagation();
+        setIsMenuOpen(prev => !prev);
+      };
+
+      const handleNavClick = (sectionId) => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const targetY = element.getBoundingClientRect().top + window.scrollY;
+          smoothScrollTo(targetY, 1200);
+          setCurrentSection(sectionId);
+          setIsMenuOpen(false);
+        }
+      };
+
+      useEffect(() => {
+        const handleClickOutside = (event) => {
+          if (isMenuOpen && menuRef.current && !menuRef.current.contains(event.target)) {
+            setIsMenuOpen(false);
+          }
+        };
+
+        const handleTouchStart = (e) => {
+          if (!isMenuOpen) return;
+          touchStartY.current = e.touches[0].clientY;
+          isSwiping.current = true;
+        };
+
+        const handleTouchMove = (e) => {
+          if (!isMenuOpen || !isSwiping.current) return;
+          const touchCurrentY = e.touches[0].clientY;
+          if (touchCurrentY > touchStartY.current) {
+            e.preventDefault();
+          }
+        };
+
+        const handleTouchEnd = (e) => {
+          if (!isMenuOpen || !isSwiping.current) return;
+          const touchEndY = e.changedTouches[0].clientY;
+          const swipeDistance = touchEndY - touchStartY.current;
+          if (swipeDistance > 50) setIsMenuOpen(false);
+          isSwiping.current = false;
+        };
+
+        const handleKeyDown = (e) => {
+          if (e.key === 'Escape' && isMenuOpen) setIsMenuOpen(false);
+        };
+
+        const handleScroll = () => {
+          try {
+            const sections = ['home', 'services', 'projects', 'testimonials', 'faq', 'contact'];
+            const scrollPosition = window.scrollY + 100;
+            for (const section of sections) {
+              const element = document.getElementById(section);
+              if (element && scrollPosition >= element.offsetTop && scrollPosition < element.offsetTop + element.offsetHeight) {
+                setCurrentSection(section);
+                break;
+              }
+            }
+            const navbar = document.querySelector('.navbar');
+            if (navbar) {
+              if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+              } else {
+                navbar.classList.remove('scrolled');
+              }
+            }
+          } catch (error) {
+            console.error('Scroll handler error:', error);
+          }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+        document.addEventListener('touchstart', handleTouchStart);
+        document.addEventListener('touchmove', handleTouchMove, { passive: false });
+        document.addEventListener('touchend', handleTouchEnd);
+        document.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+          document.removeEventListener('click', handleClickOutside);
+          document.removeEventListener('touchstart', handleTouchStart);
+          document.removeEventListener('touchmove', handleTouchMove);
+          document.removeEventListener('touchend', handleTouchEnd);
+          document.removeEventListener('keydown', handleKeyDown);
+          window.removeEventListener('scroll', handleScroll);
+        };
+      }, [isMenuOpen]);
+
+      return (
+        <nav className="glass-nav navbar shadow-lg fixed top-0 z-50 w-full">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div className="flex items-center gap-2" aria-label="DevAura Digital">
+              <img src="logo.png" alt="DevAura Digital Logo" className="logo-img" />
+            </div>
+            <div className="hidden md:flex space-x-10 items-center">
+              <button
+                onClick={() => handleNavClick('home')}
+                className={`text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold nav-link ${
+                  currentSection === 'home' ? 'text-purple-400' : ''
+                }`}
+                aria-current={currentSection === 'home' ? 'page' : undefined}
+              >
+                Home
+              </button>
+              <div className="relative dropdown">
+                <button
+                  onClick={() => handleNavClick('services')}
+                  className={`text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold nav-link ${
+                    currentSection === 'services' ? 'text-purple-400' : ''
+                  }`}
+                  aria-current={currentSection === 'services' ? 'page' : undefined}
+                >
+                  Services
+                </button>
+                <div className="dropdown-menu">
+                  {data.services.map((service, index) => (
+                    <a
+                      key={index}
+                      href={`service-detail.html?service=${encodeURIComponent(service.title)}`}
+                      className="text-gray-100 hover:text-purple-400"
+                    >
+                      {service.title}
+                    </a>
+                  ))}
+                </div>
+              </div>
+              {['Projects', 'Testimonials', 'FAQ', 'Contact'].map((item) => (
+                <button
+                  key={item}
+                  onClick={() => handleNavClick(item.toLowerCase())}
+                  className={`text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold nav-link ${
+                    currentSection === item.toLowerCase() ? 'text-purple-400' : ''
+                  }`}
+                  aria-current={currentSection === item.toLowerCase() ? 'page' : undefined}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+            <button
+              className="md:hidden text-gray-100 hover:text-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-400"
+              onClick={toggleMenu}
+              aria-label="Toggle menu"
+              aria-expanded={isMenuOpen}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"} />
+              </svg>
+            </button>
+          </div>
+          <div ref={menuRef} className={`md:hidden mobile-menu ${isMenuOpen ? 'menu-visible' : 'menu-hidden'}`}>
+            <div className="flex flex-wrap justify-around py-4 px-4 space-x-4">
+              {['Home', 'Services', 'Projects', 'Testimonials', 'FAQ', 'Contact'].map((item) => (
+                <button
+                  key={item}
+                  onClick={() => handleNavClick(item.toLowerCase())}
+                  className={`text-gray-100 hover:text-purple-400 text-base font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400 ${
+                    currentSection === item.toLowerCase() ? 'text-purple-400' : ''
+                  }`}
+                  tabIndex={isMenuOpen ? 0 : -1}
+                  aria-current={currentSection === item.toLowerCase() ? 'page' : undefined}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+          </div>
+        </nav>
+      );
+    };
+
+    const Hero = () => {
+      const [text, setText] = useState('');
+      const fullText = 'Transforming Ideas into Reality.';
+
+      useEffect(() => {
+        try {
+          let index = 0;
+          const typingInterval = setInterval(() => {
+            if (index < fullText.length) {
+              setText(fullText.slice(0, index + 1));
+              index++;
+            } else {
+              clearInterval(typingInterval);
+            }
+          }, 50);
+          return () => clearInterval(typingInterval);
+        } catch (error) {
+          console.error('Hero component error:', error);
+        }
+      }, []);
+
+      return (
+        <section id="home" className="h-screen flex flex-col text-center relative overflow-hidden">
+          <div className="relative h-full">
+            <video
+              src="images/herofloat.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover absolute inset-0 z-0"
+            />
+            <div className="absolute inset-0 z-0"></div>
+            <div id="particles-js" className="absolute inset-0 opacity-30 z-0"></div>
+            <div className="absolute inset-0 flex items-center justify-center z-10">
+              <div className="max-w-5xl mx-auto px-4 animate-slide-in">
+                <h2 className="text-4xl sm:text-7xl font-extrabold mb-6 drop-shadow-lg text-white">Empowering Your <br/> Business Growth</h2>
+                <p className="text-lg sm:text-xl mb-8 typing-text text-gray-100">{text}</p>
+                <div className="flex justify-center">
+                  <a
+                    href="https://forms.gle/ZDdqZJDd6hqtDS6p7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-orange-500 text-white px-8 py-4 rounded-full font-semibold hover:bg-orange-600 transition-all duration-300 hover:shadow-lg"
+                  >
+                    Schedule a Meeting
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    const Services = () => (
+      <section id="services" className="py-20" style={{ backgroundColor: '#18043C' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold text-center text-white mb-16 animate-slide-in">Our Services</h2>
+          <div className="services-grid">
+            {data.services.slice(0, 3).map((service, index) => (
+              <div
+                key={index}
+                className={`rounded-xl shadow-lg glass-card overflow-hidden hover-scale animate-slide-in animate-slide-in-delay-${index} service`}
+              >
+                <a href={`service-detail.html?service=${encodeURIComponent(service.title)}`} rel="noopener noreferrer">
+                  <img src={service.icon} alt={service.title} className="w-full h-48 object-cover" />
+                  <div className="service-overlay absolute inset-0 flex items-center justify-center">
+                    <span className="text-white font-semibold bg-purple-500 px-4 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">View Service</span>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold text-purple-400 mb-3">{service.title}</h3>
+                    <p className="text-gray-100 text-base">{service.desc}</p>
+                  </div>
+                </a>
+              </div>
+            ))}
+            <div className="row-2">
+              {data.services.slice(3).map((service, index) => (
+                <div
+                  key={index + 3}
+                  className={`rounded-xl shadow-lg glass-card overflow-hidden hover-scale animate-slide-in animate-slide-in-delay-${index + 3} service`}
+                >
+                  <a href={`service-detail.html?service=${encodeURIComponent(service.title)}`} rel="noopener noreferrer">
+                    <img src={service.icon} alt={service.title} className="w-full h-48 object-cover" />
+                    <div className="service-overlay absolute inset-0 flex items-center justify-center">
+                      <span className="text-white font-semibold bg-purple-500 px-4 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">View Service</span>
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-semibold text-purple-400 mb-3">{service.title}</h3>
+                      <p className="text-gray-100 text-base">{service.desc}</p>
+                    </div>
+                </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+
+    const Projects = () => (
+      <section id="projects" className="py-20" style={{ backgroundColor: '#21074D' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold text-center text-white mb-16 animate-slide-in">Our Projects</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {data.projects.map((project, index) => (
+              <div
+                key={index}
+                className={`rounded-xl shadow-lg glass-card overflow-hidden hover-scale animate-slide-in animate-slide-in-delay-${index} project`}
+              >
+                <a href={project.link} target="_blank" rel="noopener noreferrer">
+                  <img src={project.img} alt={project.name} className="w-full h-48 object-cover" />
+                  <div className="project-overlay absolute inset-0 flex items-center justify-center">
+                    <span className="text-white font-semibold bg-purple-500 px-4 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">View Project</span>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold text-purple-400 mb-3">{project.name}</h3>
+                    <p className="text-gray-100 text-base">{project.desc}</p>
+                  </div>
+                </a>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-center mt-8">
+            <a
+              href="projects.html"
+              className="bg-orange-500 text-white px-8 py-4 rounded-full font-semibold hover:bg-orange-600 transition-all duration-300 hover:shadow-lg"
+            >
+              View More Projects
+            </a>
+          </div>
+        </div>
+      </section>
+    );
+
+    const Testimonials = () => {
+      const [currentIndex, setCurrentIndex] = useState(2);
+      const [isTransitioning, setIsTransitioning] = useState(true);
+      const touchStartX = useRef(0);
+      const touchEndX = useRef(0);
+      const totalItems = data.testimonials.length;
+      const extendedTestimonials = [
+        data.testimonials[totalItems - 2],
+        data.testimonials[totalItems - 1],
+        ...data.testimonials,
+        data.testimonials[0],
+        data.testimonials[1]
+      ];
+      const totalExtendedItems = extendedTestimonials.length;
+
+      useEffect(() => {
+        const interval = setInterval(() => {
+          setCurrentIndex((prevIndex) => {
+            if (prevIndex >= totalItems + 1) {
+              setTimeout(() => {
+                setIsTransitioning(false);
+                setCurrentIndex(2);
+              }, 500);
+              return prevIndex + 1;
+            }
+            return prevIndex + 1;
+          });
+          setIsTransitioning(true);
+        }, 3000);
+
+        return () => clearInterval(interval);
+      }, [totalItems]);
+
+      const handlePrev = () => {
+        setCurrentIndex((prevIndex) => {
+          if (prevIndex <= 1) {
+            setTimeout(() => {
+              setIsTransitioning(false);
+              setCurrentIndex(totalItems);
+            }, 500);
+            return prevIndex - 1;
+          }
+          return prevIndex - 1;
+        });
+        setIsTransitioning(true);
+      };
+
+      const handleNext = () => {
+        setCurrentIndex((prevIndex) => {
+          if (prevIndex >= totalItems + 1) {
+            setTimeout(() => {
+              setIsTransitioning(false);
+              setCurrentIndex(2);
+            }, 500);
+            return prevIndex + 1;
+          }
+          return prevIndex + 1;
+        });
+        setIsTransitioning(true);
+      };
+
+      const handleTouchStart = (e) => {
+        touchStartX.current = e.touches[0].clientX;
+      };
+
+      const handleTouchMove = (e) => {
+        touchEndX.current = e.touches[0].clientX;
+      };
+
+      const handleTouchEnd = () => {
+        const swipeDistance = touchStartX.current - touchEndX.current;
+        if (swipeDistance > 50) {
+          handleNext();
+        } else if (swipeDistance < -50) {
+          handlePrev();
+        }
+      };
+
+      const getItemClass = (index, currentIndex) => {
+        const prevIndex = currentIndex - 1;
+        const nextIndex = currentIndex + 1;
+
+        if (index === prevIndex) return 'carousel-item left';
+        if (index === currentIndex) return 'carousel-item center';
+        if (index === nextIndex) return 'carousel-item right';
+        return 'carousel-item hidden';
+      };
+
+      return (
+        <section id="testimonials" className="py-20" style={{ backgroundColor: '#18043C' }}>
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-4xl font-bold text-center text-white mb-16 animate-slide-in">
+              What Our Clients Say
+            </h2>
+            <div
+              className="carousel-container"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
+              <div
+                className={`carousel-track ${!isTransitioning ? 'no-transition' : ''}`}
+                style={{ transform: `translateX(-${(currentIndex - 1) * 33.3333}%)` }}
+              >
+                {extendedTestimonials.map((testimonial, index) => (
+                  <div
+                    key={index}
+                    className={getItemClass(index, currentIndex)}
+                  >
+                    <div className="p-6 rounded-xl shadow-lg glass-card h-full">
+                      <p className="text-gray-300 text-base mb-4 italic">"{testimonial.quote}"</p>
+                      <h3 className="text-lg font-semibold text-purple-400">{testimonial.author}</h3>
+                      <p className="text-gray-100 text-sm">{testimonial.role}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <button
+                onClick={handlePrev}
+                className="absolute top-1/2 left-[-3rem] transform -translate-y-1/2 bg-purple-500 text-white p-3 rounded-full hover:bg-purple-700"
+                aria-label="Previous testimonial"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                onClick={handleNext}
+                className="absolute top-1/2 right-[-3rem] transform -translate-y-1/2 bg-purple-500 text-white p-3 rounded-full hover:bg-purple-700"
+                aria-label="Next testimonial"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+              <div className="flex justify-center mt-4 space-x-2">
+                {data.testimonials.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`w-3 h-3 rounded-full ${
+                      index === ((currentIndex - 2 + totalItems) % totalItems) ? 'bg-purple-400' : 'bg-gray-500'
+                    }`}
+                    onClick={() => {
+                      setIsTransitioning(true);
+                      setCurrentIndex(index + 2);
+                    }}
+                    aria-label={`Go to testimonial ${index + 1}`}
+                  ></button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    const FAQ = () => {
+      const [openIndex, setOpenIndex] = useState(null);
+
+      const toggleFAQ = (index) => {
+        setOpenIndex(openIndex === index ? null : index);
+      };
+
+      return (
+        <section id="faq" className="py-20" style={{ backgroundColor: '#21074D' }}>
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-4xl font-bold text-center text-white mb-16 animate-slide-in">
+              Frequently Asked Questions
+            </h2>
+            <div className="faq-container">
+              {data.faqs.map((faq, index) => (
+                <div
+                  key={index}
+                  className="faq-item"
+                  style={{ animationDelay: `${index * 0.2}s` }}
+                >
+                  <button
+                    className="faq-button"
+                    onClick={() => toggleFAQ(index)}
+                    aria-expanded={openIndex === index}
+                    aria-controls={`faq-answer-${index}`}
+                  >
+                    <div className="faq-question-container">
+                      <h3 className="text-xl font-semibold text-purple-400">{faq.question}</h3>
+                    </div>
+                    <svg
+                      className={`w-6 h-6 text-purple-400 faq-toggle ${openIndex === index ? 'open' : ''}`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                  </button>
+                  <div
+                    id={`faq-answer-${index}`}
+                    className={`faq-answer text-gray-100 text-base ${openIndex === index ? 'open' : ''}`}
+                  >
+                    {faq.answer}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    const Contact = () => {
+      const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+      const [submissions, setSubmissions] = useState([]);
+      const [errors, setErrors] = useState({});
+      const [isSubmitting, setIsSubmitting] = useState(false);
+
+      useEffect(() => {
+        const savedSubmissions = localStorage.getItem('contactSubmissions');
+        if (savedSubmissions) {
+          setSubmissions(JSON.parse(savedSubmissions));
+        }
+        emailjs.init("dSlgqCLBZsVf6odhG");
+      }, []);
+
+      const validateForm = () => {
+        const newErrors = {};
+        if (!formData.name.trim()) newErrors.name = 'Name is required';
+        if (!formData.email.trim()) {
+          newErrors.email = 'Email is required';
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+          newErrors.email = 'Invalid email format';
+        }
+        if (!formData.message.trim()) newErrors.message = 'Message is required';
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+      };
+
+      const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+        if (errors[e.target.name]) {
+          setErrors({ ...errors, [e.target.name]: '' });
+        }
+      };
+
+      const handleSubmit = async () => {
+        if (!validateForm()) return;
+        setIsSubmitting(true);
+
+        const submission = {
+          ...formData,
+          timestamp: new Date().toISOString()
+        };
+        const existingData = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
+        localStorage.setItem('contactSubmissions', JSON.stringify([...existingData, submission]));
+
+        try {
+          await emailjs.send(
+            'service_lxf2hn8',
+            'template_rjv5qed',
+            {
+              name: formData.name,
+              email: formData.email,
+              message: formData.message,
+              timestamp: submission.timestamp
+            }
+          );
+          alert('Thank you for your message! It has been sent successfully.');
+          setFormData({ name: '', email: '', message: '' });
+        } catch (error) {
+          console.error('EmailJS error:', error);
+          alert('Failed to send message. Please try again or contact us via WhatsApp.');
+          const whatsappMessage = `New Contact Form Submission\nName: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`;
+          const whatsappUrl = `https://wa.me/917859966310?text=${encodeURIComponent(whatsappMessage)}`;
+          window.open(whatsappUrl, '_blank');
+        } finally {
+          setIsSubmitting(false);
+        }
+      };
+
+      return (
+        <section id="contact" className="py-20" style={{ backgroundColor: '#18043C' }}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              <div className="animate-slide-in">
+                <h3 className="text-2xl text-purple-400 font-semibold font-weight: 600;">Get in Touch - Transform Your Business Digitally</h3><br/>
+                <p className="text-gray-300 mb-4 text-lg">
+                  Looking for Custom Website, Software, or Creative Design Solutions? <br/><br/>
+                  DevAura is your trusted partner for building high-performance digital platforms and impactful visual identities that fuel real business growth.<br/><br/>
+                  Why Choose Us?<br/>
+                  💻 Professional Website & Software Development<br/>
+                  🎨 Graphic Design & Brand Identity<br/>
+                  💳 Visiting Card & Print Design<br/>
+                  🔍 SEO Services to Boost Online Visibility<br/>
+                  💬 24/7 Client Support<br/><br/>
+                  💡 Let's build your digital future—together.<br/><br/>
+                  📩 Contact DevAura Today — Your Partner in Smart Development & Creative Design Excellence
+                </p>
+              </div>
+              <div className="animate-slide-in">
+                <div className="space-y-5">
+                  <h2 className="text-4xl font-bold text-white mb-4 text-center">Contact Us</h2>
+                  <div>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Your Name"
+                      className={`w-full p-4 glass-card border ${errors.name ? 'border-red-500' : 'border-gray-600'} rounded-lg focus:outline-none focus:ring-1 focus:ring-purple-400 text-gray-200 transition-all duration-200`}
+                      required
+                    />
+                    {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+                  </div>
+                  <div>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Your Email"
+                      className={`w-full p-4 glass-card border ${errors.email ? 'border-red-500' : 'border-gray-600'} rounded-lg focus:outline-none focus:ring-1 focus:ring-purple-400 text-gray-200 transition-all duration-200`}
+                      required
+                    />
+                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                  </div>
+                  <div>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Your Message"
+                      className={`w-full p-4 glass-card border ${errors.message ? 'border-red-500' : 'border-gray-600'} rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 text-gray-200 transition-all duration-200`}
+                      rows="5"
+                      required
+                    ></textarea>
+                    {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+                  </div>
+                  <br/>
+                  <button
+                    onClick={handleSubmit}
+                    disabled={isSubmitting}
+                    className={`w-full bg-orange-500 text-gray-100 px-6 py-4 rounded-lg font-semibold hover:bg-orange-600 transition-all duration-300 flex items-center justify-center ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-lg'}`}
+                  >
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                    </svg>
+                    {isSubmitting ? 'Sending...' : 'Get Free Consultation'}
+                  </button>
+                  <div className="mt-6 text-center text-sm text-gray-400">
+                    We typically respond within 2-3 hours during business hours.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    const Footer = () => (
+      <footer className="footer-glass text-gray-300 py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="animate-slide-in">
+              <div className="flex items-center mb-6">
+                <img src="logo.png" alt="DevAura Digital Logo" className="logo-img footer-logo" />
+              </div>
+              <p className="text-gray-300 text-base leading-relaxed">
+                DevAura is a leading digital solutions provider, specializing in innovative SEO, software, and web development. We empower startups and businesses with custom solutions to boost online presence.
+              </p>
+            </div>
+            <div className="animate-slide-in animate-slide-in-delay-1">
+              <h3 className="text-2xl font-semibold text-gray-100 mb-6">Our Services</h3>
+              <ul className="text-gray-300 text-base space-y-2">
+                {data.services.map((service, index) => (
+                  <li key={index}>
+                    <a
+                      href={`service-detail.html?service=${encodeURIComponent(service.title)}`}
+                      className="text-gray-300 hover:text-purple-400 footer-link"
+                    >
+                      {service.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="animate-slide-in animate-slide-in-delay-2">
+              <h3 className="text-2xl font-semibold text-gray-100 mb-6">Get in Touch</h3>
+              <p className="text-gray-300 text-base mb-4">
+                <span className="font-semibold">Email:</span> <a href="mailto:devauradigital@gmail.com" className="text-purple-400 hover:underline footer-link">devauradigital@gmail.com</a>
+              </p>
+              <p className="text-gray-300 text-base mb-4">
+                <span className="font-semibold">Phone:</span> <a href="tel:+917859966310" className="text-purple-400 hover:underline footer-link">+91 7859966310</a> / <a href="tel:+919054647189" className="text-purple-400 hover:underline footer-link">+91 9054647189</a>
+              </p>
+              <div className="flex space-x-4 mt-4">
+                {[
+                  { href: "https://www.instagram.com/devauradigital", icon: <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12,2.2c3.2,0,3.6,0,4.9,0.1c3.3,0.1,4.8,1.7,4.9,4.9c0.1,1.3,0.1,1.6,0.1,4.8c0,3.2,0,3.6-0.1,4.8c-0.1,3.2-1.7,4.8-4.9,4.9c-1.3,0.1-1.6,0.1-4.9,0.1c-3.2,0-3.6,0-4.9-0.1c-3.3-0.1-4.8-1.7-4.9-4.9c-0.1-1.3-0.1-1.6-0.1-4.8c0-3.2,0-3.6,0.1-4.8c0.1-3.2,1.7-4.8,4.9-4.9C8.4,2.2,8.8,2.2,12,2.2z M12,0C8.7,0,8.3,0,7.1,0.1c-4.4,0.2-6.8,2.6-7,7C0,8.3,0,8.7,0,12s0,3.7,0.1,4.9c0.2,4.4,2.6,6.8,7,7C8.3,24,8.7,24,12,24s3.7,0,4.9-0.1c4.4-0.2,6.8-2.6,7-7C24,15.7,24,15.3,24,12s0-3.7-0.1-4.9c-0.2-4.4-2.6-6.8-7-7C15.7,0,15.3,0,12,0z M12,5.8c-3.4,0-6.2,2.8-6.2,6.2s2.8,6.2,6.2,6.2s6.2-2.8,6.2-6.2S15.4,5.8,12,5.8z M12,16c-2.2,0-4-1.8-4-4s1.8-4,4-4s4,1.8,4,4S14.2,16,12,16z M18.4,4.2c-0.8,0-1.4,0.6-1.4,1.4S17.6,7,18.4,7c0.8,0,1.4-0.6,1.4-1.4S19.2,4.2,18.4,4.2z"/></svg> },
+                  { href: "https://wa.me/917859966310", icon: <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.520-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.520.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.554-0 00-3.48-8.413z"/></svg> },
+                  { href: "tel:+917859966310", icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg> }
+                ].map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-gray-400 hover:text-purple-400 social-icon p-2"
+                  >
+                    {social.icon}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="mt-6 pt-6 border-t border-gray-700 text-center">
+            <p className="text-gray-400 text-sm">
+              © {new Date().getFullYear()} DevAura. All rights reserved. Subject to Ahmedabad jurisdiction only.
+            </p>
+          </div>
+        </div>
+      </footer>
+    );
+
+    const App = () => {
+      const [showTopBtn, setShowTopBtn] = useState(false);
+      useEffect(() => {
+        const handleScroll = () => setShowTopBtn(window.scrollY > 300);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
+      return (
+        <div>
+          <NavBar />
+          <Hero />
+          <Services />
+          <Projects />
+          <Testimonials />
+          <FAQ />
+          <Contact />
+          <Footer />
+          {showTopBtn && (
+            <button
+              onClick={() => smoothScrollTo(0, 1200)}
+              className="fixed bottom-4 right-4 bg-orange-500 text-white p-3 rounded-full shadow-lg hover:bg-orange-600"
+              aria-label="Back to top"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+              </svg>
+            </button>
+          )}
+        </div>
+      );
+    };
+
+    const root = createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>

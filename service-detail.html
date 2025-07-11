@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevAura Digital: Service Details</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="canonical" href="https://www.devauradigital.com/service-detail.html">
+  <meta name="description" content="Explore DevAura Digital's innovative website development, software solutions, SEO, and digital marketing services in detail.">
+  <meta name="keywords" content="DevAura, DevAura Digital, website development, software development, SEO, digital marketing, web design, eCommerce, UI/UX, custom software">
+  <meta name="author" content="DevAura Digital">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="DevAura Digital: Service Details">
+  <meta property="og:description" content="Detailed information about DevAura Digital's services to empower your business with innovative solutions.">
+  <meta property="og:image" content="devauralogo.png">
+  <meta property="og:url" content="https://www.devauradigital.com/service-detail.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DevAura Digital: Service Details">
+  <meta name="twitter:description" content="Explore DevAura Digital's expert website, software, SEO, and marketing services.">
+  <meta name="twitter:image" content="devauralogo.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "DevAura Digital",
+    "url": "https://www.devauradigital.com",
+    "logo": "https://www.devauradigital.com/devauralogo.png",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+91-7859966310",
+      "contactType": "customer service",
+      "email": "devauradigital@gmail.com"
+    },
+    "sameAs": [
+      "https://www.instagram.com/devauradigital",
+      "https://wa.me/917859966310"
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap">
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.5/babel.min.js" defer></script>
+  <script src="https://cdn.tailwindcss.com" defer></script>
+  <style>
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #18043C;
+    }
+    h1, h2, h3 {
+      font-family: 'Outfit', sans-serif;
+    }
+    .animate-slide-in {
+      animation: slideIn 0.8s ease-out forwards;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-slide-in-delay-0 { animation-delay: 0s; }
+    .animate-slide-in-delay-1 { animation-delay: 0.2s; }
+    .animate-slide-in-delay-2 { animation-delay: 0.4s; }
+    .hover-scale {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hover-scale:hover {
+      transform: scale(1.05) rotate(1deg);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+    .mobile-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: rgba(31, 41, 55, 0.7);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 100;
+      opacity: 0;
+      transform: translateY(-10%);
+      transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    }
+    .menu-visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .menu-hidden {
+      transform: translateY(-10px);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: #a855f7;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    .dropdown {
+      position: relative;
+    }
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: rgba(64, 0, 116, 0.313);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform .2s ease;
+      z-index: 100;
+      min-width: 200px;
+      pointer-events: none;
+    }
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .dropdown-menu a {
+      display: block;
+      padding: 0.75rem 1.5rem;
+      color: #e8e8e8;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      border-radius: 1rem;
+    }
+    .dropdown-menu a:hover,
+    .dropdown-menu a:focus {
+      background-color: rgba(141, 92, 255, 0.2);
+      color: #a066ff;
+      border-radius: 1rem;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+    }
+    @media (max-width: 639px) {
+      .glass-card {
+        backdrop-filter: none;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+    }
+    .social-icon {
+      transition: transform 0.1s ease, background-color 0.3s ease;
+      border-radius: 50%;
+    }
+    .social-icon:hover,
+    .social-icon:focus {
+      transform: scale(1.2);
+      background-color: rgba(168, 85, 247, 0.2);
+      border-radius: 50%;
+    }
+    .form-input:focus {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(168, 85, 247, 0.3);
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+    .service-image-container {
+      width: 100%;
+      max-width: 700px;
+      height: 300px;
+      overflow: hidden;
+      margin: 0 auto 1rem;
+      border-radius: 0.5rem;
+    }
+    .service-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 0.5rem;
+    }
+    .glass-nav {
+      background: transparent;
+      transition: background-color 0.3s ease;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      width: 100%;
+    }
+    .glass-nav.scrolled {
+      background: rgba(45, 0, 101, 0.37);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    @media (max-width: 767px) {
+      .glass-nav {
+        backdrop-filter: none;
+        background: transparent;
+      }
+      .glass-nav.scrolled {
+        background: rgba(0, 0, 0, 0.34);
+      }
+      .service-image-container {
+        height: 200px;
+      }
+    }
+    .back-arrow {
+      transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+      padding: 0.5rem 1rem;
+      border-radius: .7rem;
+      background: rgba(168, 85, 247, 0.1);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+    .back-arrow:hover,
+    .back-arrow:focus {
+      transform: translateX(-5px);
+      color: #ffffff;
+    }
+    .back-arrow svg {
+      transition: transform 0.3s ease;
+    }
+    .back-arrow:hover svg,
+    .back-arrow:focus svg {
+      transform: scale(1.1);
+    }
+    .footer-glass {
+      background: #1b0543;
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .footer-link {
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .footer-link:hover,
+    .footer-link:focus {
+      color: #a855f7;
+      transform: translateX(5px);
+    }
+    .logo-img {
+      height: 2.5rem;
+      width: auto;
+    }
+    @media (max-width: 767px) {
+      .logo-img {
+        height: 2rem;
+      }
+    }
+  </style>
+</head>
+<body class="text-gray-200">
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+    const { createRoot } = ReactDOM;
+
+    // Moved data to a separate object for maintainability
+    const data = {
+      phoneNumber: "+917859966310",
+      services: [
+        {
+          title: "Website Development",
+          desc: "Custom websites and robust eCommerce platforms to boost your online presence.",
+          icon: "images/website.webp",
+          details: [
+            "Our Website & eCommerce Development service delivers tailored solutions for businesses, from startups to enterprises, creating visually stunning and highly functional websites. We specialize in building everything from simple portfolio sites to complex eCommerce platforms, ensuring each site is optimized for user engagement and business growth. Our team leverages cutting-edge technologies to provide a seamless online experience.",
+            "We utilize React, Node.js, and Shopify to build responsive websites with secure payment gateways and fast load times. Our focus on mobile-first design ensures your site performs flawlessly across devices, while integrated analytics tools provide insights into visitor behavior. This data-driven approach helps refine strategies and boost conversions.",
+            "Beyond development, we offer comprehensive maintenance packages to keep your site secure and updated with the latest patches. Our services include regular performance optimizations and scalability planning to support your business as it grows. We also provide multi-channel integration for a cohesive shopping experience."
+          ],
+          bullets: [
+            "Custom designs for portfolios to eCommerce",
+            "Secure payment gateways integration",
+            "Fast load times and scalability",
+            "Advanced analytics for user insights"
+          ]
+        },
+        {
+          title: "Software Development",
+          desc: "Bespoke software solutions tailored to optimize your business processes.",
+          icon: "images/software.webp",
+          details: [
+            "Our Software Development service creates custom applications like ERP and CRM systems to streamline your business operations. We address unique challenges with tailored solutions, ensuring seamless integration with existing systems. Our development process prioritizes security, scalability, and efficiency to drive productivity and long-term success.",
+            "Using Python, Java, and C#, we build robust software that meets your specific needs. Our rigorous testing protocols, including unit and integration testing, ensure bug-free performance and a smooth user experience. We also provide clear documentation to facilitate future updates and maintenance.",
+            "Security is embedded throughout our development lifecycle, with regular vulnerability assessments and industry-standard encryption. Our solutions are designed to scale with your business, supporting growth without compromising performance. We deliver maintainable code that empowers your team to adapt and expand functionality."
+          ],
+          bullets: [
+            "Custom ERP and CRM solutions",
+            "Secure and scalable architecture",
+            "Comprehensive testing protocols",
+            "Clear documentation for maintenance"
+          ]
+        },
+        {
+          title: "Digital Marketing",
+          desc: "Strategic campaigns to enhance your brand's reach and engagement.",
+          icon: "images/digital marketing.webp",
+          details: [
+            "Our Digital Marketing services craft strategic campaigns to boost your brand's visibility and engagement across platforms. We specialize in social media marketing, PPC advertising, email campaigns, and content creation, tailoring each strategy to your target audience. Our goal is to drive traffic and maximize your return on investment.",
+            "We employ a data-driven approach, using analytics and A/B testing to optimize campaign performance. Our team develops content calendars to ensure consistent messaging that resonates with your audience. Detailed monthly reports provide clear KPIs, offering transparency and actionable insights to refine your marketing efforts.",
+            "Our campaigns are designed to adapt to market trends and seasonal opportunities, ensuring sustained growth. We focus on measurable results, from increased website traffic to higher conversion rates. By leveraging advanced tools and industry best practices, we help your brand stand out in a competitive digital landscape."
+          ],
+          bullets: [
+            "Social media and PPC campaigns",
+            "Engaging content creation",
+            "Data-driven traffic growth",
+            "Transparent KPI reporting"
+          ]
+        },
+        {
+          title: "Search Engine Optimization",
+          desc: "Optimize your website to rank higher and attract more traffic.",
+          icon: "images/seo.webp",
+          details: [
+            "Our SEO services enhance your website's visibility on search engines like Google through proven strategies. We conduct in-depth keyword research and optimize on-page elements to improve rankings and attract organic traffic. Our approach ensures your site aligns with user intent and search engine algorithms for sustainable growth.",
+            "We perform comprehensive technical SEO audits to identify and resolve issues like crawl errors and mobile usability problems. High-quality backlink building strengthens your site's authority, while analytics tracking provides insights into performance. Our strategies are tailored to your industry and target audience.",
+            "Continuous monitoring keeps your site compliant with evolving algorithms, maintaining and improving rankings. We focus on semantic search and content optimization to deliver value to users, establishing your brand as an authority. Our services drive long-term traffic growth and enhance user engagement."
+          ],
+          bullets: [
+            "In-depth keyword research",
+            "Technical SEO audits",
+            "High-quality backlink building",
+            "Algorithm update monitoring"
+          ]
+        },
+        {
+          title: "UI/UX Design",
+          desc: "Intuitive and engaging designs for seamless user experiences.",
+          icon: "images/uiux.webp",
+          details: [
+            "Our UI/UX Design services create intuitive, user-friendly interfaces that enhance customer satisfaction and engagement. We begin with user research and empathy mapping to understand your audience's needs and behaviors. Using Figma and Adobe XD, we craft visually appealing designs that prioritize functionality and user experience.",
+            "Our process includes wireframing, prototyping, and usability testing to ensure seamless navigation and aesthetic appeal. We develop comprehensive design systems for consistency across platforms, allowing for scalability as your product evolves. Our designs are optimized for performance and user retention.",
+            "Accessibility is core to our approach, with WCAG-compliant designs that cater to diverse audiences. We deliver prototypes that reflect real-world usage, ensuring your product is both engaging and inclusive. Our focus on user-centric design drives higher satisfaction and loyalty."
+          ],
+          bullets: [
+            "User research and prototyping",
+            "Visually appealing layouts",
+            "WCAG-compliant accessibility",
+            "Scalable design systems"
+          ]
+        }
+      ]
+    };
+
+    const NavBar = () => {
+      const [isMenuOpen, setIsMenuOpen] = useState(false);
+      const menuRef = useRef(null);
+
+      const toggleMenu = (e) => {
+        if (e) e.stopPropagation();
+        setIsMenuOpen(prev => !prev);
+      };
+
+      useEffect(() => {
+        const handleClickOutside = (event) => {
+          if (isMenuOpen && menuRef.current && !menuRef.current.contains(event.target)) {
+            setIsMenuOpen(false);
+          }
+        };
+
+        const handleKeyDown = (e) => {
+          if (e.key === 'Escape' && isMenuOpen) setIsMenuOpen(false);
+        };
+
+        const handleScroll = () => {
+          const navbar = document.querySelector('.navbar');
+          if (navbar) {
+            if (window.scrollY > 50) {
+              navbar.classList.add('scrolled');
+            } else {
+              navbar.classList.remove('scrolled');
+            }
+          }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+        document.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+          document.removeEventListener('click', handleClickOutside);
+          document.removeEventListener('keydown', handleKeyDown);
+          window.removeEventListener('scroll', handleScroll);
+        };
+      }, [isMenuOpen]);
+
+      return (
+        <nav className="glass-nav navbar shadow-lg fixed top-0 z-50 w-full" role="navigation" aria-label="Main navigation">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div className="flex items-center gap-2" aria-label="DevAura Digital">
+              <img src="logo.png" alt="DevAura Digital Logo" className="logo-img" width="40" height="40" loading="lazy" />
+            </div>
+            <div className="hidden md:flex space-x-10 items-center">
+              <a href="index.html" className="text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold nav-link">Home</a>
+              <div className="relative dropdown">
+                <button className="text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold nav-link" aria-haspopup="true" aria-expanded={isMenuOpen}>Services</button>
+                <div className="dropdown-menu" role="menu">
+                  {data.services.map((service, index) => (
+                    <a
+                      key={index}
+                      href={`service-detail.html?service=${encodeURIComponent(service.title)}`}
+                      className="text-gray-100 hover:text-purple-400"
+                      role="menuitem"
+                    >
+                      {service.title}
+                    </a>
+                  ))}
+                </div>
+              </div>
+              <a href="index.html#projects" className="text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold nav-link">Projects</a>
+              <a href="index.html#contact" className="text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold nav-link">Contact</a>
+            </div>
+            <button className="md:hidden text-gray-300 hover:text-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-400" onClick={toggleMenu} aria-label="Toggle menu" aria-expanded={isMenuOpen}>
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"} />
+              </svg>
+            </button>
+          </div>
+          <div ref={menuRef} className={`md:hidden mobile-menu ${isMenuOpen ? 'menu-visible' : 'menu-hidden'}`} role="menu">
+            <div className="flex flex-wrap justify-around py-4 px-4 space-x-4">
+              <a href="index.html" className="text-gray-300 hover:text-purple-400 text-base font-medium transition-all duration-200" role="menuitem">Home</a>
+              <a href="index.html#services" className="text-gray-100 hover:text-purple-400 text-base font-medium transition-all duration-200" role="menuitem">Services</a>
+              <a href="index.html#projects" className="text-gray-100 hover:text-purple-400 text-base font-medium transition-all duration-200" role="menuitem">Projects</a>
+              <a href="index.html#contact" className="text-gray-100 hover:text-purple-400 text-base font-medium transition-all duration-200" role="menuitem">Contact</a>
+            </div>
+          </div>
+        </nav>
+      );
+    };
+
+    const CallToAction = () => (
+      <section id="cta" className="py-10" style={{ backgroundColor: '#18043C' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="glass-card p-8 rounded-xl shadow-lg hover-scale animate-slide-in animate-slide-in-delay-2 text-center">
+            <h2 className="text-3xl font-bold text-gray-100 mb-4">Ready to Transform Your Business?</h2>
+            <p className="text-gray-300 text-sm mb-6">Contact us today to schedule a free consultation and discover how our services can drive your success.</p>
+            <a
+              href="https://forms.gle/ZDdqZJDd6hqtDS6p7"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-orange-500 text-white px-8 py-4 rounded-full hover:bg-orange-600 font-semibold transition-all duration-300 hover:shadow-lg"
+            >
+              Schedule a Consultation
+            </a>
+          </div>
+        </div>
+      </section>
+    );
+
+    const Footer = () => (
+      <footer className="footer-glass text-gray-300 py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="animate-slide-in">
+              <div className="flex items-center mb-6">
+                <img src="logo.png" alt="DevAura Digital Logo" className="logo-img footer-logo" />
+              </div>
+              <p className="text-gray-300 text-base leading-relaxed">
+                DevAura is a leading digital solutions provider, specializing in innovative SEO, software, and web development. We empower startups and businesses with custom solutions to boost online presence.
+              </p>
+            </div>
+            <div className="animate-slide-in animate-slide-in-delay-1">
+              <h3 className="text-2xl font-semibold text-gray-100 mb-6">Our Services</h3>
+              <ul className="text-gray-300 text-base space-y-2">
+                {data.services.map((service, index) => (
+                  <li key={index}>
+                    <a
+                      href={`service-detail.html?service=${encodeURIComponent(service.title)}`}
+                      className="text-gray-300 hover:text-purple-400 footer-link"
+                    >
+                      {service.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="animate-slide-in animate-slide-in-delay-2">
+              <h3 className="text-2xl font-semibold text-gray-100 mb-6">Get in Touch</h3>
+              <p className="text-gray-300 text-base mb-4">
+                <span className="font-semibold">Email:</span> <a href="mailto:devauradigital@gmail.com" className="text-purple-400 hover:underline footer-link">devauradigital@gmail.com</a>
+              </p>
+              <p className="text-gray-300 text-base mb-4">
+                <span className="font-semibold">Phone:</span> <a href="tel:+917859966310" className="text-purple-400 hover:underline footer-link">+91 7859966310</a> / <a href="tel:+919054647189" className="text-purple-400 hover:underline footer-link">+91 9054647189</a>
+              </p>
+              <div className="flex space-x-4 mt-4">
+                {[
+                  { href: "https://www.instagram.com/devauradigital", icon: <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12,2.2c3.2,0,3.6,0,4.9,0.1c3.3,0.1,4.8,1.7,4.9,4.9c0.1,1.3,0.1,1.6,0.1,4.8c0,3.2,0,3.6-0.1,4.8c-0.1,3.2-1.7,4.8-4.9,4.9c-1.3,0.1-1.6,0.1-4.9,0.1c-3.2,0-3.6,0-4.9-0.1c-3.3-0.1-4.8-1.7-4.9-4.9c-0.1-1.3-0.1-1.6-0.1-4.8c0-3.2,0-3.6,0.1-4.8c0.1-3.2,1.7-4.8,4.9-4.9C8.4,2.2,8.8,2.2,12,2.2z M12,0C8.7,0,8.3,0,7.1,0.1c-4.4,0.2-6.8,2.6-7,7C0,8.3,0,8.7,0,12s0,3.7,0.1,4.9c0.2,4.4,2.6,6.8,7,7C8.3,24,8.7,24,12,24s3.7,0,4.9-0.1c4.4-0.2,6.8-2.6,7-7C24,15.7,24,15.3,24,12s0-3.7-0.1-4.9c-0.2-4.4-2.6-6.8-7-7C15.7,0,15.3,0,12,0z M12,5.8c-3.4,0-6.2,2.8-6.2,6.2s2.8,6.2,6.2,6.2s6.2-2.8,6.2-6.2S15.4,5.8,12,5.8z M12,16c-2.2,0-4-1.8-4-4s1.8-4,4-4s4,1.8,4,4S14.2,16,12,16z M18.4,4.2c-0.8,0-1.4,0.6-1.4,1.4S17.6,7,18.4,7c0.8,0,1.4-0.6,1.4-1.4S19.2,4.2,18.4,4.2z"/></svg> },
+                  { href: "https://wa.me/917859966310", icon: <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.520-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.520.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.554-0 00-3.48-8.413z"/></svg> },
+                  { href: "tel:+917859966310", icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg> }
+                ].map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-gray-400 hover:text-purple-400 social-icon p-2"
+                  >
+                    {social.icon}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="mt-6 pt-6 border-t border-gray-700 text-center">
+            <p className="text-gray-400 text-sm">
+              © {new Date().getFullYear()} DevAura. All rights reserved. Subject to Ahmedabad jurisdiction only.
+            </p>
+          </div>
+        </div>
+      </footer>
+    );
+
+    const ServiceDetail = () => {
+      const [service, setService] = useState(null);
+      const [showTopBtn, setShowTopBtn] = useState(false);
+
+      useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const serviceTitle = params.get('service');
+        // Sanitize input to prevent XSS
+        const sanitizedTitle = serviceTitle ? decodeURIComponent(serviceTitle).replace(/[<>"']/g, '') : '';
+        const foundService = data.services.find(s => s.title === sanitizedTitle);
+        setService(foundService || null);
+
+        if (foundService) {
+          document.title = `DevAura Digital: ${foundService.title} Services`;
+          const ogTitle = document.querySelector('meta[property="og:title"]');
+          const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+          const ogDescription = document.querySelector('meta[property="og:description"]');
+          const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+          const metaKeywords = document.querySelector('meta[name="keywords"]');
+          if (ogTitle) ogTitle.setAttribute('content', `DevAura Digital: ${foundService.title} Services`);
+          if (twitterTitle) twitterTitle.setAttribute('content', `DevAura Digital: ${foundService.title} Services`);
+          if (ogDescription) ogDescription.setAttribute('content', `Discover ${foundService.title.toLowerCase()} services at DevAura Digital, including ${foundService.bullets[0].toLowerCase()} and more to boost your business.`);
+          if (twitterDescription) twitterDescription.setAttribute('content', `Explore ${foundService.title.toLowerCase()} at DevAura Digital: ${foundService.bullets[0].toLowerCase()}.`);
+          if (metaKeywords) {
+            metaKeywords.setAttribute('content', `DevAura Digital, ${foundService.title.toLowerCase()}, ${foundService.bullets.join(', ').toLowerCase()}`);
+          }
+
+          const script = document.createElement('script');
+          script.type = 'application/ld+json';
+          script.textContent = JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Service',
+            'serviceType': foundService.title,
+            'provider': {
+              '@type': 'Organization',
+              'name': 'DevAura Digital',
+              'url': 'https://www.devauradigital.com'
+            },
+            'description': foundService.desc,
+            'offers': {
+              '@type': 'Offer',
+              'url': `https://www.devauradigital.com/service-detail.html?service=${encodeURIComponent(foundService.title)}`
+            }
+          });
+          document.head.appendChild(script);
+          return () => document.head.removeChild(script);
+        }
+
+        const handleScroll = () => {
+          const threshold = Math.max(300, window.innerHeight * 0.5);
+          setShowTopBtn(window.scrollY > threshold);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
+
+      if (!service) {
+        return (
+          <div className="min-h-screen flex items-center justify-center">
+            <div className="text-center glass-card p-8 rounded-xl shadow-lg">
+              <h2 className="text-2xl font-semibold text-purple-400 mb-4">Service Unavailable</h2>
+              <p className="text-gray-300 mb-6">We're currently working on making this service available.<br/> In the meantime, explore some of our most popular services:</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {data.services.slice(0, 5).map((service, index) => (
+                  <a
+                    key={index}
+                    href={`service-detail.html?service=${encodeURIComponent(service.title)}`}
+                    className="bg-purple-500 text-white px-2 py-2 rounded-full hover:bg-purple-600 transition-all duration-300"
+                  >
+                    {service.title}
+                  </a>
+                ))}
+              </div>
+              <a
+                href="index.html#services"
+                className="mt-6 inline-block bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 font-semibold transition-all duration-300"
+              >
+                View All Services
+              </a>
+            </div>
+          </div>
+        );
+      }
+
+      return (
+        <div>
+          <NavBar />
+          <section id="service-details" className="py-20 pt-32" style={{ backgroundColor: '#21074D' }}>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="grid grid-cols-1 gap-8">
+                <div className="animate-slide-in animate-slide-in-delay-0">
+                  <a
+                    href="index.html"
+                    className="inline-flex items-center text-gray-100 hover:text-purple-300 transition-all duration-300 back-arrow mb-6"
+                  >
+                    <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Back to Home
+                  </a>
+                  <h1 className="text-6xl font-extrabold text-center text-white mb-10">{service.title}</h1>
+                  <div className="service-image-container">
+                    <img src={service.icon} alt={service.title} className="service-image" loading="lazy" />
+                  </div>
+                </div>
+                <div className="glass-card p-8 rounded-xl shadow-lg hover-scale animate-slide-in animate-slide-in-delay-1">
+                  <h2 className="text-2xl font-semibold text-purple-400 mb-6">Why Choose {service.title}?</h2>
+                  <div className="space-y-4">
+                    {service.details.map((paragraph, index) => (
+                      <p key={index} className="text-gray-300 text-base">{paragraph}</p>
+                    ))}
+                    <ul className="list-disc list-inside text-gray-300 mt-4 space-y-2">
+                      {service.bullets.map((bullet, index) => (
+                        <li key={index} className="text-base">{bullet}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <CallToAction />
+          <Footer />
+          {showTopBtn && (
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="fixed bottom-4 right-4 bg-orange-500 text-white p-3 rounded-full shadow-lg hover:bg-orange-600 transition-all duration-300"
+              aria-label="Back to top"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+              </svg>
+            </button>
+          )}
+        </div>
+      );
+    };
+
+    const root = createRoot(document.getElementById('root'));
+    root.render(<ServiceDetail />);
+  </script>
+</body>
+</html>
