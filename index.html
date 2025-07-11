@@ -392,15 +392,6 @@
     .faq-toggle-button:hover .faq-toggle {
       color: #a855f7;
     }
-    .logo-img {
-      height: 2.5rem;
-      width: auto;
-    }
-    @media (max-width: 767px) {
-      .logo-img {
-        height: 2rem;
-      }
-    }
   </style>
 </head>
 <body class="text-gray-200">
@@ -882,17 +873,31 @@
     const FAQ = () => {
       const [openIndex, setOpenIndex] = useState(null);
       const faqRefs = useRef([]);
+      const lastToggleTime = useRef(0);
 
-      const toggleFAQ = (index) => {
-        setOpenIndex(openIndex === index ? null : index);
+      const debounce = (func, wait) => {
+        return (...args) => {
+          const now = Date.now();
+          if (now - lastToggleTime.current > wait) {
+            lastToggleTime.current = now;
+            func(...args);
+          }
+        };
       };
+
+      const toggleFAQ = debounce((index) => {
+        console.log(`Toggling FAQ index: ${index}, Current openIndex: ${openIndex}`);
+        setOpenIndex(openIndex === index ? null : index);
+      }, 300);
 
       useEffect(() => {
         faqRefs.current.forEach((ref, index) => {
-          if (ref && openIndex === index) {
-            ref.style.maxHeight = `${ref.scrollHeight}px`;
-          } else if (ref) {
-            ref.style.maxHeight = '0px';
+          if (ref) {
+            if (openIndex === index) {
+              ref.style.maxHeight = `${ref.scrollHeight}px`;
+            } else {
+              ref.style.maxHeight = '0px';
+            }
           }
         });
       }, [openIndex]);
@@ -917,7 +922,6 @@
                     <button
                       className="faq-toggle-button"
                       onClick={() => toggleFAQ(index)}
-                      onTouchStart={() => toggleFAQ(index)}
                       aria-expanded={openIndex === index}
                       aria-controls={`faq-answer-${index}`}
                       aria-label={openIndex === index ? `Collapse ${faq.question}` : `Expand ${faq.question}`}
