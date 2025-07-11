@@ -287,19 +287,18 @@
     .carousel-track {
       display: flex;
       transition: transform 0.5s ease;
-      touch-action: pan-y pinch-zoom;
     }
     .carousel-track.no-transition {
       transition: none;
     }
     .carousel-item {
-      flex: 0 0 100%;
+      flex: 0 0 33.3333%;
       padding: 0 10px;
       transition: opacity 0.3s ease;
     }
-    @media (min-width: 768px) {
+    @media (max-width: 767px) {
       .carousel-item {
-        flex: 0 0 33.3333%;
+        flex: 0 0 100%;
       }
     }
     .carousel-item.left {
@@ -325,9 +324,6 @@
       backdrop-filter: blur(10px);
       border-radius: 0.5rem;
       overflow: hidden;
-      width: fit-content;
-      max-width: 100%;
-      margin: 0 auto;
     }
     @media (max-width: 639px) {
       .faq-container {
@@ -335,8 +331,6 @@
         background: rgba(255, 255, 255, 0.08);
         border: 1px solid rgba(255, 255, 255, 0.2);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        padding: 0 0.5rem;
       }
     }
     .faq-item {
@@ -350,9 +344,9 @@
       align-items: center;
       justify-content: space-between;
       width: 100%;
-      padding: 1rem;
+      padding: 1.5rem;
       background: transparent;
-      transition: background-color 0.2s ease;
+      transition: background-color 0.3s ease;
     }
     .faq-button:hover {
       background: rgba(255, 255, 255, 0.02);
@@ -362,35 +356,35 @@
       display: flex;
       justify-content: left;
       align-items: center;
-      text-align: left;
     }
     .faq-answer {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.2s ease-out;
-      opacity: 1;
-      padding: 0 1rem;
+      transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
+      opacity: 0;
+      border-radius: 1px;
+      padding: 0 1.5rem;
       background: transparent;
     }
     .faq-answer.open {
-      padding: 1rem;
+      max-height: 300px; /* Adjust as needed for content */
+      opacity: 1;
+      padding: 1rem 1.5rem;
     }
     .faq-toggle {
-      transition: transform 0.2s ease;
+      transition: transform 0.3s ease;
     }
     .faq-toggle.open {
       transform: rotate(45deg);
     }
-    .faq-toggle-button {
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      padding: 0.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .logo-img {
+      height: 2.5rem;
+      width: auto;
     }
-    .faq-toggle-button:hover .faq-toggle {
-      color: #a855f7;
+    @media (max-width: 767px) {
+      .logo-img {
+        height: 2rem;
+      }
     }
   </style>
 </head>
@@ -441,6 +435,7 @@
         { quote: "The Website looks Lovely and very interactive.", author: "Saintstan", role: "Owner, Big Dream Farm" }
       ],
       faqs: [
+        
         { question: "What types of websites can DevAura build?", answer: "We specialize in a wide range of websites, including eCommerce platforms with payment integration, corporate websites that showcase your business professionally, personal and creative portfolios, and fully custom web applications tailored to your specific industry needs. Whether you're a startup, small business, or enterprise, we build scalable and user-friendly digital solutions."},
         { question: "Can DevAura help improve my website's SEO?", answer: "Absolutely! Our SEO services include in-depth keyword research, technical SEO audits, on-page optimization (meta tags, headings, content structure), link-building strategies, and performance tracking using tools like Google Analytics and Search Console. We focus on both short-term visibility and long-term ranking growth."},
         { question: "How long does it take to develop a custom website solution?", answer: "The timeline depends on the scope and complexity of the project. On average, a custom website takes 1 to 3 months, which includes planning, design, development, testing, and revisions. We provide weekly progress updates and collaborate closely with you throughout the development process." },
@@ -786,20 +781,65 @@
     );
 
     const Testimonials = () => {
-      const [currentIndex, setCurrentIndex] = useState(0);
+      const [currentIndex, setCurrentIndex] = useState(2);
       const [isTransitioning, setIsTransitioning] = useState(true);
       const touchStartX = useRef(0);
       const touchEndX = useRef(0);
       const totalItems = data.testimonials.length;
+      const extendedTestimonials = [
+        data.testimonials[totalItems - 2],
+        data.testimonials[totalItems - 1],
+        ...data.testimonials,
+        data.testimonials[0],
+        data.testimonials[1]
+      ];
+      const totalExtendedItems = extendedTestimonials.length;
 
       useEffect(() => {
         const interval = setInterval(() => {
-          setCurrentIndex((prevIndex) => (prevIndex + 1) % totalItems);
+          setCurrentIndex((prevIndex) => {
+            if (prevIndex >= totalItems + 1) {
+              setTimeout(() => {
+                setIsTransitioning(false);
+                setCurrentIndex(2);
+              }, 500);
+              return prevIndex + 1;
+            }
+            return prevIndex + 1;
+          });
           setIsTransitioning(true);
         }, 3000);
 
         return () => clearInterval(interval);
       }, [totalItems]);
+
+      const handlePrev = () => {
+        setCurrentIndex((prevIndex) => {
+          if (prevIndex <= 1) {
+            setTimeout(() => {
+              setIsTransitioning(false);
+              setCurrentIndex(totalItems);
+            }, 500);
+            return prevIndex - 1;
+          }
+          return prevIndex - 1;
+        });
+        setIsTransitioning(true);
+      };
+
+      const handleNext = () => {
+        setCurrentIndex((prevIndex) => {
+          if (prevIndex >= totalItems + 1) {
+            setTimeout(() => {
+              setIsTransitioning(false);
+              setCurrentIndex(2);
+            }, 500);
+            return prevIndex + 1;
+          }
+          return prevIndex + 1;
+        });
+        setIsTransitioning(true);
+      };
 
       const handleTouchStart = (e) => {
         touchStartX.current = e.touches[0].clientX;
@@ -812,12 +852,20 @@
       const handleTouchEnd = () => {
         const swipeDistance = touchStartX.current - touchEndX.current;
         if (swipeDistance > 50) {
-          setCurrentIndex((prevIndex) => (prevIndex + 1) % totalItems);
-          setIsTransitioning(true);
+          handleNext();
         } else if (swipeDistance < -50) {
-          setCurrentIndex((prevIndex) => (prevIndex - 1 + totalItems) % totalItems);
-          setIsTransitioning(true);
+          handlePrev();
         }
+      };
+
+      const getItemClass = (index, currentIndex) => {
+        const prevIndex = currentIndex - 1;
+        const nextIndex = currentIndex + 1;
+
+        if (index === prevIndex) return 'carousel-item left';
+        if (index === currentIndex) return 'carousel-item center';
+        if (index === nextIndex) return 'carousel-item right';
+        return 'carousel-item hidden';
       };
 
       return (
@@ -834,12 +882,12 @@
             >
               <div
                 className={`carousel-track ${!isTransitioning ? 'no-transition' : ''}`}
-                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                style={{ transform: `translateX(-${(currentIndex - 1) * 33.3333}%)` }}
               >
-                {data.testimonials.map((testimonial, index) => (
+                {extendedTestimonials.map((testimonial, index) => (
                   <div
                     key={index}
-                    className="carousel-item"
+                    className={getItemClass(index, currentIndex)}
                   >
                     <div className="p-6 rounded-xl shadow-lg glass-card h-full">
                       <p className="text-gray-300 text-base mb-4 italic">"{testimonial.quote}"</p>
@@ -849,16 +897,34 @@
                   </div>
                 ))}
               </div>
+              <button
+                onClick={handlePrev}
+                className="absolute top-1/2 left-[-3rem] transform -translate-y-1/2 bg-purple-500 text-white p-3 rounded-full hover:bg-purple-700"
+                aria-label="Previous testimonial"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                onClick={handleNext}
+                className="absolute top-1/2 right-[-3rem] transform -translate-y-1/2 bg-purple-500 text-white p-3 rounded-full hover:bg-purple-700"
+                aria-label="Next testimonial"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
               <div className="flex justify-center mt-4 space-x-2">
                 {data.testimonials.map((_, index) => (
                   <button
                     key={index}
                     className={`w-3 h-3 rounded-full ${
-                      index === currentIndex ? 'bg-purple-400' : 'bg-gray-500'
+                      index === ((currentIndex - 2 + totalItems) % totalItems) ? 'bg-purple-400' : 'bg-gray-500'
                     }`}
                     onClick={() => {
                       setIsTransitioning(true);
-                      setCurrentIndex(index);
+                      setCurrentIndex(index + 2);
                     }}
                     aria-label={`Go to testimonial ${index + 1}`}
                   ></button>
@@ -872,35 +938,10 @@
 
     const FAQ = () => {
       const [openIndex, setOpenIndex] = useState(null);
-      const faqRefs = useRef([]);
-      const lastToggleTime = useRef(0);
 
-      const debounce = (func, wait) => {
-        return (...args) => {
-          const now = Date.now();
-          if (now - lastToggleTime.current > wait) {
-            lastToggleTime.current = now;
-            func(...args);
-          }
-        };
-      };
-
-      const toggleFAQ = debounce((index) => {
-        console.log(`Toggling FAQ index: ${index}, Current openIndex: ${openIndex}`);
+      const toggleFAQ = (index) => {
         setOpenIndex(openIndex === index ? null : index);
-      }, 300);
-
-      useEffect(() => {
-        faqRefs.current.forEach((ref, index) => {
-          if (ref) {
-            if (openIndex === index) {
-              ref.style.maxHeight = `${ref.scrollHeight}px`;
-            } else {
-              ref.style.maxHeight = '0px';
-            }
-          }
-        });
-      }, [openIndex]);
+      };
 
       return (
         <section id="faq" className="py-20" style={{ backgroundColor: '#21074D' }}>
@@ -915,31 +956,27 @@
                   className="faq-item"
                   style={{ animationDelay: `${index * 0.2}s` }}
                 >
-                  <div className="faq-button">
+                  <button
+                    className="faq-button"
+                    onClick={() => toggleFAQ(index)}
+                    aria-expanded={openIndex === index}
+                    aria-controls={`faq-answer-${index}`}
+                  >
                     <div className="faq-question-container">
-                      <h3 className="text-lg font-semibold text-purple-400">{faq.question}</h3>
+                      <h3 className="text-xl font-semibold text-purple-400">{faq.question}</h3>
                     </div>
-                    <button
-                      className="faq-toggle-button"
-                      onClick={() => toggleFAQ(index)}
-                      aria-expanded={openIndex === index}
-                      aria-controls={`faq-answer-${index}`}
-                      aria-label={openIndex === index ? `Collapse ${faq.question}` : `Expand ${faq.question}`}
+                    <svg
+                      className={`w-6 h-6 text-purple-400 faq-toggle ${openIndex === index ? 'open' : ''}`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
                     >
-                      <svg
-                        className={`w-6 h-6 text-purple-400 faq-toggle ${openIndex === index ? 'open' : ''}`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
-                      </svg>
-                    </button>
-                  </div>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                  </button>
                   <div
                     id={`faq-answer-${index}`}
                     className={`faq-answer text-gray-100 text-base ${openIndex === index ? 'open' : ''}`}
-                    ref={(el) => (faqRefs.current[index] = el)}
                   >
                     {faq.answer}
                   </div>
