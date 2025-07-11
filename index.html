@@ -353,8 +353,6 @@
       padding: 1rem;
       background: transparent;
       transition: background-color 0.2s ease;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
     }
     .faq-button:hover {
       background: rgba(255, 255, 255, 0.02);
@@ -382,6 +380,17 @@
     }
     .faq-toggle.open {
       transform: rotate(45deg);
+    }
+    .faq-toggle-button {
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      padding: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .faq-toggle-button:hover .faq-toggle {
+      color: #a855f7;
     }
     .logo-img {
       height: 2.5rem;
@@ -901,25 +910,28 @@
                   className="faq-item"
                   style={{ animationDelay: `${index * 0.2}s` }}
                 >
-                  <button
-                    className="faq-button"
-                    onClick={() => toggleFAQ(index)}
-                    onTouchStart={() => toggleFAQ(index)}
-                    aria-expanded={openIndex === index}
-                    aria-controls={`faq-answer-${index}`}
-                  >
+                  <div className="faq-button">
                     <div className="faq-question-container">
                       <h3 className="text-lg font-semibold text-purple-400">{faq.question}</h3>
                     </div>
-                    <svg
-                      className={`w-6 h-6 text-purple-400 faq-toggle ${openIndex === index ? 'open' : ''}`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+                    <button
+                      className="faq-toggle-button"
+                      onClick={() => toggleFAQ(index)}
+                      onTouchStart={() => toggleFAQ(index)}
+                      aria-expanded={openIndex === index}
+                      aria-controls={`faq-answer-${index}`}
+                      aria-label={openIndex === index ? `Collapse ${faq.question}` : `Expand ${faq.question}`}
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
-                    </svg>
-                  </button>
+                      <svg
+                        className={`w-6 h-6 text-purple-400 faq-toggle ${openIndex === index ? 'open' : ''}`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
+                      </svg>
+                    </button>
+                  </div>
                   <div
                     id={`faq-answer-${index}`}
                     className={`faq-answer text-gray-100 text-base ${openIndex === index ? 'open' : ''}`}
