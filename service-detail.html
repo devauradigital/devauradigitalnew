@@ -15,20 +15,20 @@
   <meta name="robots" content="index, follow">
   <meta property="og:title" content="DevAura Digital: Service Details">
   <meta property="og:description" content="Detailed information about DevAura Digital's services to empower your business with innovative solutions.">
-  <meta property="og:image" content="devauralogo.png">
+  <meta property="og:image" content="logo.png">
   <meta property="og:url" content="https://www.devauradigital.com/service-detail.html">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="DevAura Digital: Service Details">
   <meta name="twitter:description" content="Explore DevAura Digital's expert website, software, SEO, and marketing services.">
-  <meta name="twitter:image" content="devauralogo.png">
+  <meta name="twitter:image" content="logo.png">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "DevAura Digital",
     "url": "https://www.devauradigital.com",
-    "logo": "https://www.devauradigital.com/devauralogo.png",
+    "logo": "https://www.devauradigital.com/logo.png",
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+91-7859966310",
@@ -47,9 +47,17 @@
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.5/babel.min.js" defer></script>
   <script src="https://cdn.tailwindcss.com" defer></script>
   <style>
+    :root {
+      --primary-bg: #18043C;
+      --secondary-bg: #21074D;
+    }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
     body {
       font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #18043C;
+      background-color: var(--primary-bg);
     }
     h1, h2, h3 {
       font-family: 'Outfit', sans-serif;
@@ -67,31 +75,78 @@
     .hover-scale {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .hover-scale:hover {
+    .group:hover .hover-scale[href] {
       transform: scale(1.05) rotate(1deg);
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     }
     .mobile-menu {
-      position: absolute;
-      top: 100%;
+      position: fixed;
+      top: 65px;
       left: 0;
-      width: 100%;
-      background: rgba(31, 41, 55, 0.7);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      width: 60%;
+      height: calc(100vh - 65px);
+      background: rgba(24, 4, 60, 0.8);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
       z-index: 100;
       opacity: 0;
-      transform: translateY(-10%);
+      transform: translateX(-100%);
       transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
     }
     .menu-visible {
-      transform: translateY(0);
+      transform: translateX(0);
       opacity: 1;
     }
     .menu-hidden {
-      transform: translateY(-10px);
+      transform: translateX(-100%);
       opacity: 0;
       pointer-events: none;
+    }
+    .mobile-menu-item {
+      animation: slideInMenu 0.3s ease-out forwards;
+      animation-delay: calc(var(--index) * 0.1s);
+      width: auto;
+      text-align: left;
+    }
+    @keyframes slideInMenu {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .hamburger {
+      position: relative;
+      width: 24px;
+      height: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #e8e8e8;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+    .hamburger:hover span {
+      background: #a855f7;
+    }
+    .hamburger:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.5);
     }
     .nav-link {
       position: relative;
@@ -116,8 +171,7 @@
       position: absolute;
       top: 100%;
       left: 0;
-      background-color: rgba(64, 0, 116, 0.313);
-      backdrop-filter: blur(10px);
+      background-color: rgba(60, 0, 116, 0.8);
       border-radius: 1rem;
       opacity: 0;
       transform: translateY(-10px);
@@ -126,8 +180,7 @@
       min-width: 200px;
       pointer-events: none;
     }
-    .dropdown:hover .dropdown-menu,
-    .dropdown:focus-within .dropdown-menu {
+    .dropdown:hover .dropdown-menu {
       opacity: 1;
       transform: translateY(0);
       pointer-events: auto;
@@ -139,11 +192,23 @@
       transition: background-color 0.2s ease, color 0.2s ease;
       border-radius: 1rem;
     }
-    .dropdown-menu a:hover,
-    .dropdown-menu a:focus {
+    .dropdown-menu a:hover {
       background-color: rgba(141, 92, 255, 0.2);
       color: #a066ff;
       border-radius: 1rem;
+    }
+    .mobile-dropdown-menu {
+      display: flex;
+      background-color: #18043ccb;
+      flex-direction: column;
+      margin-top: 0.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    .mobile-dropdown-menu.open {
+      max-height: 200px;
+      background-color: #18043ccb;
     }
     .glass-card {
       background: rgba(255, 255, 255, 0.05);
@@ -151,36 +216,32 @@
       backdrop-filter: blur(10px);
     }
     @media (max-width: 639px) {
-      .glass-card {
+      .glass-card, .glass-nav, .mobile-menu, .dropdown-menu {
         backdrop-filter: none;
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.2);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .mobile-menu.menu-visible {
+        background: rgba(24, 4, 60, 0.8);
+      }
+      .mobile-menu-item {
+        text-align: left;
+        width: auto;
+      }
+      .mobile-dropdown-menu a {
+        text-align: left;
+        padding-left: 1.5rem;
       }
     }
     .social-icon {
       transition: transform 0.1s ease, background-color 0.3s ease;
       border-radius: 50%;
     }
-    .social-icon:hover,
-    .social-icon:focus {
+    .social-icon:hover {
       transform: scale(1.2);
       background-color: rgba(168, 85, 247, 0.2);
       border-radius: 50%;
-    }
-    .form-input:focus {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(168, 85, 247, 0.3);
-    }
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      border: 0;
     }
     .service-image-container {
       width: 100%;
@@ -198,59 +259,37 @@
       border-radius: 0.5rem;
     }
     .glass-nav {
-      background: transparent;
+      background: rgba(24, 4, 60, 0.4);
       transition: background-color 0.3s ease;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       width: 100%;
     }
     .glass-nav.scrolled {
-      background: rgba(45, 0, 101, 0.37);
-      backdrop-filter: blur(15px);
+      background: rgba(24, 4, 60, 0.5);
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
     @media (max-width: 767px) {
       .glass-nav {
-        backdrop-filter: none;
-        background: transparent;
+        background: rgba(24, 4, 60, 0.4);
       }
       .glass-nav.scrolled {
-        background: rgba(0, 0, 0, 0.34);
+        background: rgba(24, 4, 60, 0.5);
       }
       .service-image-container {
         height: 200px;
       }
     }
-    .back-arrow {
-      transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-      padding: 0.5rem 1rem;
-      border-radius: .7rem;
-      background: rgba(168, 85, 247, 0.1);
-      border: 1px solid rgba(168, 85, 247, 0.3);
-    }
-    .back-arrow:hover,
-    .back-arrow:focus {
-      transform: translateX(-5px);
-      color: #ffffff;
-    }
-    .back-arrow svg {
-      transition: transform 0.3s ease;
-    }
-    .back-arrow:hover svg,
-    .back-arrow:focus svg {
-      transform: scale(1.1);
-    }
     .footer-glass {
-      background: #1b0543;
+      background: #18043C;
       backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
     }
     .footer-link {
       transition: color 0.3s ease, transform 0.3s ease;
     }
-    .footer-link:hover,
-    .footer-link:focus {
+    .footer-link:hover {
       color: #a855f7;
       transform: translateX(5px);
+      transform: scale(1.2);
     }
     .logo-img {
       height: 2.5rem;
@@ -261,6 +300,11 @@
         height: 2rem;
       }
     }
+    .is-scrolling .animate-slide-in,
+    .is-scrolling .hover-scale {
+      animation: none !important;
+      transition: none !important;
+    }
   </style>
 </head>
 <body class="text-gray-200">
@@ -269,7 +313,6 @@
     const { useState, useEffect, useRef } = React;
     const { createRoot } = ReactDOM;
 
-    // Moved data to a separate object for maintainability
     const data = {
       phoneNumber: "+917859966310",
       services: [
@@ -356,102 +399,268 @@
       ]
     };
 
+    const debounce = (func, wait) => {
+      let timeout;
+      return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(null, args), wait);
+      };
+    };
+
+    const throttle = (func, limit) => {
+      let inThrottle;
+      return (...args) => {
+        if (!inThrottle) {
+          func.apply(null, args);
+          inThrottle = true;
+          setTimeout(() => (inThrottle = false), limit);
+        }
+      };
+    };
+
     const NavBar = () => {
       const [isMenuOpen, setIsMenuOpen] = useState(false);
+      const [currentSection, setCurrentSection] = useState('home');
+      const [openDropdown, setOpenDropdown] = useState(false);
       const menuRef = useRef(null);
+      const touchStartX = useRef(null);
+      const isSwiping = useRef(false);
+
 
       const toggleMenu = (e) => {
         if (e) e.stopPropagation();
         setIsMenuOpen(prev => !prev);
+        if (!isMenuOpen) setOpenDropdown(false);
+      };
+
+      const toggleDropdown = (e) => {
+        e.stopPropagation();
+        setOpenDropdown(prev => !prev);
+      };
+
+      const handleNavClick = (sectionId) => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+          setCurrentSection(sectionId);
+          setIsMenuOpen(false);
+          setOpenDropdown(false);
+        } else {
+          window.location.href = `index.html#${sectionId}`;
+        }
       };
 
       useEffect(() => {
         const handleClickOutside = (event) => {
           if (isMenuOpen && menuRef.current && !menuRef.current.contains(event.target)) {
             setIsMenuOpen(false);
+            setOpenDropdown(false);
           }
+        };
+
+        const handleTouchStart = (e) => {
+          if (!isMenuOpen) return;
+          touchStartX.current = e.touches[0].clientX;
+          isSwiping.current = true;
+        };
+
+        const handleTouchMove = throttle((e) => {
+          if (!isMenuOpen || !isSwiping.current) return;
+          const touchCurrentX = e.touches[0].clientX;
+          if (touchCurrentX > touchStartX.current) {
+            e.preventDefault();
+          }
+        }, 100);
+
+        const handleTouchEnd = (e) => {
+          if (!isMenuOpen || !isSwiping.current) return;
+          const touchEndX = e.changedTouches[0].clientX;
+          const swipeDistance = touchStartX.current - touchEndX;
+          if (swipeDistance < -50) {
+            setIsMenuOpen(false);
+            setOpenDropdown(false);
+          }
+          isSwiping.current = false;
         };
 
         const handleKeyDown = (e) => {
-          if (e.key === 'Escape' && isMenuOpen) setIsMenuOpen(false);
-        };
-
-        const handleScroll = () => {
-          const navbar = document.querySelector('.navbar');
-          if (navbar) {
-            if (window.scrollY > 50) {
-              navbar.classList.add('scrolled');
-            } else {
-              navbar.classList.remove('scrolled');
-            }
+          if (e.key === 'Escape' && isMenuOpen) {
+            setIsMenuOpen(false);
+            setOpenDropdown(false);
           }
         };
 
+        const handleScroll = debounce(() => {
+          try {
+            const sections = ['home', 'services', 'projects', 'testimonials', 'faq', 'contact'];
+            const scrollPosition = window.scrollY + 100;
+            for (const section of sections) {
+              const element = document.getElementById(section);
+              if (element && scrollPosition >= element.offsetTop && scrollPosition < element.offsetTop + element.offsetHeight) {
+                setCurrentSection(section);
+                break;
+              }
+            }
+            const navbar = document.querySelector('.navbar');
+            if (navbar) {
+              if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+              } else {
+                navbar.classList.remove('scrolled');
+              }
+            }
+          } catch (error) {
+            console.error('Scroll handler error:', error);
+          }
+        }, 100);
+
         document.addEventListener('click', handleClickOutside);
+        document.addEventListener('touchstart', handleTouchStart);
+        document.addEventListener('touchmove', handleTouchMove, { passive: false });
+        document.addEventListener('touchend', handleTouchEnd);
         document.addEventListener('keydown', handleKeyDown);
         window.addEventListener('scroll', handleScroll);
         return () => {
           document.removeEventListener('click', handleClickOutside);
+          document.removeEventListener('touchstart', handleTouchStart);
+          document.removeEventListener('touchmove', handleTouchMove);
+          document.removeEventListener('touchend', handleTouchEnd);
           document.removeEventListener('keydown', handleKeyDown);
           window.removeEventListener('scroll', handleScroll);
         };
       }, [isMenuOpen]);
 
       return (
-        <nav className="glass-nav navbar shadow-lg fixed top-0 z-50 w-full" role="navigation" aria-label="Main navigation">
+        <nav className="glass-nav navbar shadow-lg fixed top-0 z-50 w-full">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             <div className="flex items-center gap-2" aria-label="DevAura Digital">
-              <img src="logo.png" alt="DevAura Digital Logo" className="logo-img" width="40" height="40" loading="lazy" />
+              <img src="logo.png" alt="DevAura Digital Logo" className="logo-img" />
             </div>
             <div className="hidden md:flex space-x-10 items-center">
-              <a href="index.html" className="text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold nav-link">Home</a>
+              <button
+                onClick={() => handleNavClick('home')}
+                className={`text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold nav-link ${
+                  currentSection === 'home' ? 'text-purple-400' : ''
+                }`}
+                aria-current={currentSection === 'home' ? 'page' : undefined}
+              >
+                Home
+              </button>
               <div className="relative dropdown">
-                <button className="text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold nav-link" aria-haspopup="true" aria-expanded={isMenuOpen}>Services</button>
-                <div className="dropdown-menu" role="menu">
+                <button
+                  onClick={() => handleNavClick('services')}
+                  className={`text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold nav-link ${
+                    currentSection === 'services' ? 'text-purple-400' : ''
+                  }`}
+                  aria-current={currentSection === 'services' ? 'page' : undefined}
+                >
+                  Services
+                </button>
+                <div className="dropdown-menu">
                   {data.services.map((service, index) => (
                     <a
                       key={index}
                       href={`service-detail.html?service=${encodeURIComponent(service.title)}`}
                       className="text-gray-100 hover:text-purple-400"
-                      role="menuitem"
                     >
                       {service.title}
                     </a>
                   ))}
                 </div>
               </div>
-              <a href="index.html#projects" className="text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold nav-link">Projects</a>
-              <a href="index.html#contact" className="text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold nav-link">Contact</a>
+              {['Projects', 'Testimonials', 'FAQ', 'Contact'].map((item) => (
+                <button
+                  key={item}
+                  onClick={() => handleNavClick(item.toLowerCase())}
+                  className={`text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold nav-link ${
+                    currentSection === item.toLowerCase() ? 'text-purple-400' : ''
+                  }`}
+                  aria-current={currentSection === item.toLowerCase() ? 'page' : undefined}
+                >
+                  {item}
+                </button>
+              ))}
             </div>
-            <button className="md:hidden text-gray-300 hover:text-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-400" onClick={toggleMenu} aria-label="Toggle menu" aria-expanded={isMenuOpen}>
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"} />
-              </svg>
+            <button
+              className="md:hidden text-gray-100 hover:text-purple-400 focus:outline-none"
+              onClick={toggleMenu}
+              aria-label="Toggle menu"
+              aria-expanded={isMenuOpen}
+            >
+              <div className={`hamburger ${isMenuOpen ? 'open' : ''}`}>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
             </button>
           </div>
-          <div ref={menuRef} className={`md:hidden mobile-menu ${isMenuOpen ? 'menu-visible' : 'menu-hidden'}`} role="menu">
-            <div className="flex flex-wrap justify-around py-4 px-4 space-x-4">
-              <a href="index.html" className="text-gray-300 hover:text-purple-400 text-base font-medium transition-all duration-200" role="menuitem">Home</a>
-              <a href="index.html#services" className="text-gray-100 hover:text-purple-400 text-base font-medium transition-all duration-200" role="menuitem">Services</a>
-              <a href="index.html#projects" className="text-gray-100 hover:text-purple-400 text-base font-medium transition-all duration-200" role="menuitem">Projects</a>
-              <a href="index.html#contact" className="text-gray-100 hover:text-purple-400 text-base font-medium transition-all duration-200" role="menuitem">Contact</a>
-            </div>
+          <div ref={menuRef} className={`md:hidden mobile-menu ${isMenuOpen ? 'menu-visible' : 'menu-hidden'}`}>
+            {['Home', 'Services', 'Projects', 'Testimonials', 'FAQ', 'Contact'].map((item, index) => (
+              <div key={item} className="mobile-menu-item" style={{ '--index': index }}>
+                {item === 'Services' ? (
+                  <div className="w-full">
+                    <button
+                      onClick={toggleDropdown}
+                      className={`w-full text-gray-100 hover:text-purple-400 text-lg font-medium transition-all duration-200 py-2 text-left`}
+                      aria-expanded={openDropdown}
+                      aria-controls="mobile-services-dropdown"
+                    >
+                      Services
+                      <svg
+                        className={`inline-block w-4 h-4 ml-2 transform transition-transform ${openDropdown ? 'rotate-180' : ''}`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    <div
+                      id="mobile-services-dropdown"
+                      className={`mobile-dropdown-menu ${openDropdown ? 'open' : ''}`}
+                    >
+                      {data.services.map((service, idx) => (
+                        <a
+                          key={idx}
+                          href={`service-detail.html?service=${encodeURIComponent(service.title)}`}
+                          className="text-gray-200 hover:text-purple-400 text-base py-1 block text-left"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          {service.title}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => handleNavClick(item.toLowerCase())}
+                    className={`w-full text-gray-100 hover:text-purple-400 text-lg font-medium transition-all duration-200 py-2 text-left focus:outline-none focus:ring-2 focus:ring-purple-400 ${
+                      currentSection === item.toLowerCase() ? 'text-purple-400' : ''
+                    }`}
+                    tabIndex={isMenuOpen ? 0 : -1}
+                    aria-current={currentSection === item.toLowerCase() ? 'page' : undefined}
+                  >
+                    {item}
+                  </button>
+                )}
+              </div>
+            ))}
           </div>
         </nav>
       );
     };
 
     const CallToAction = () => (
-      <section id="cta" className="py-10" style={{ backgroundColor: '#18043C' }}>
+      <section id="cta" className="py-20" style={{ backgroundColor: 'var(--primary-bg)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="glass-card p-8 rounded-xl shadow-lg hover-scale animate-slide-in animate-slide-in-delay-2 text-center">
             <h2 className="text-3xl font-bold text-gray-100 mb-4">Ready to Transform Your Business?</h2>
-            <p className="text-gray-300 text-sm mb-6">Contact us today to schedule a free consultation and discover how our services can drive your success.</p>
+            <p className="text-gray-300 text-base mb-6">Contact us today to schedule a free consultation and discover how our services can drive your success.</p>
             <a
               href="https://forms.gle/ZDdqZJDd6hqtDS6p7"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-orange-500 text-white px-8 py-4 rounded-full hover:bg-orange-600 font-semibold transition-all duration-300 hover:shadow-lg"
+              className="bg-orange-500 text-white px-8 py-4 rounded-full font-semibold hover:bg-orange-600 transition-all duration-300 hover:shadow-lg"
             >
               Schedule a Consultation
             </a>
@@ -515,7 +724,7 @@
             </div>
           </div>
           <div className="mt-6 pt-6 border-t border-gray-700 text-center">
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-400 text-base">
               © {new Date().getFullYear()} DevAura. All rights reserved. Subject to Ahmedabad jurisdiction only.
             </p>
           </div>
@@ -530,7 +739,6 @@
       useEffect(() => {
         const params = new URLSearchParams(window.location.search);
         const serviceTitle = params.get('service');
-        // Sanitize input to prevent XSS
         const sanitizedTitle = serviceTitle ? decodeURIComponent(serviceTitle).replace(/[<>"']/g, '') : '';
         const foundService = data.services.find(s => s.title === sanitizedTitle);
         setService(foundService || null);
@@ -571,12 +779,34 @@
           return () => document.head.removeChild(script);
         }
 
-        const handleScroll = () => {
-          const threshold = Math.max(300, window.innerHeight * 0.5);
-          setShowTopBtn(window.scrollY > threshold);
-        };
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('animate-slide-in');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        document.querySelectorAll('.animate-slide-in').forEach((el) => observer.observe(el));
+
+        const handleScroll = debounce(() => {
+          setShowTopBtn(window.scrollY > 300);
+          document.body.classList.add('is-scrolling');
+          clearTimeout(window.scrollTimeout);
+          window.scrollTimeout = setTimeout(() => {
+            document.body.classList.remove('is-scrolling');
+          }, 150);
+        }, 100);
+
         window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+          observer.disconnect();
+        };
       }, []);
 
       if (!service) {
@@ -610,20 +840,20 @@
       return (
         <div>
           <NavBar />
-          <section id="service-details" className="py-20 pt-32" style={{ backgroundColor: '#21074D' }}>
+          <section id="service-details" className="py-20 pt-32" style={{ backgroundColor: 'var(--secondary-bg)' }}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-1 gap-8">
                 <div className="animate-slide-in animate-slide-in-delay-0">
                   <a
                     href="index.html"
-                    className="inline-flex items-center text-gray-100 hover:text-purple-300 transition-all duration-300 back-arrow mb-6"
+                    className="inline-flex items-center text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold hover:transform hover:-translate-x-[5px] mb-6"
                   >
                     <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
                     </svg>
                     Back to Home
                   </a>
-                  <h1 className="text-6xl font-extrabold text-center text-white mb-10">{service.title}</h1>
+                  <h1 className="text-4xl sm:text-6xl font-extrabold text-center text-white mb-10">{service.title}</h1>
                   <div className="service-image-container">
                     <img src={service.icon} alt={service.title} className="service-image" loading="lazy" />
                   </div>
@@ -649,7 +879,7 @@
           {showTopBtn && (
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="fixed bottom-4 right-4 bg-orange-500 text-white p-3 rounded-full shadow-lg hover:bg-orange-600 transition-all duration-300"
+              className="fixed bottom-4 right-4 bg-orange-500 text-white p-3 rounded-full shadow-lg hover:bg-orange-600"
               aria-label="Back to top"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
