@@ -41,7 +41,8 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap">
+  <link rel="preload" href="images/herofloat.mp4" as="video" type="video/mp4">
+  <link rel="preload" href="logo.png" as="image">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap">
   <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js" defer></script>
@@ -49,13 +50,17 @@
   <script src="https://cdn.tailwindcss.com" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js" defer></script>
   <style>
+    :root {
+      --primary-bg: #18043C;
+      --secondary-bg: #21074D;
+    }
     html {
-      scroll-behavior: auto;
+      scroll-behavior: smooth;
       scroll-padding-top: 80px;
     }
     body {
       font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #18043C;
+      background-color: var(--primary-bg);
     }
     h1, h2, h3 {
       font-family: 'Outfit', sans-serif;
@@ -72,37 +77,81 @@
     .animate-slide-in-delay-2 { animation-delay: 0.4s; }
     .animate-slide-in-delay-3 { animation-delay: 0.6s; }
     .animate-slide-in-delay-4 { animation-delay: 0.8s; }
-    .animate-slide-in-delay-5 { animation-delay: 1.0s; }
-    .animate-slide-in-delay-6 { animation-delay: 1.2s; }
-    .animate-slide-in-delay-7 { animation-delay: 1.4s; }
     .hover-scale {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .hover-scale:hover {
+    .group:hover .hover-scale[href] {
       transform: scale(1.05) rotate(1deg);
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     }
     .mobile-menu {
-      position: absolute;
-      top: 100%;
+      position: fixed;
+      top: 65px; /* Aligns with the bottom of the navbar */
       left: 0;
-      width: 100%;
-      background: rgba(31, 41, 55, 0.7);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      width: 60%;
+      height: calc(100vh - 65px); /* Full height minus navbar */
+      background: rgba(24, 4, 60, 0.8); /* #18043C with 70% opacity */
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
       z-index: 100;
       opacity: 0;
-      transform: translateY(-10%);
+      transform: translateX(-100%);
       transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
     }
     .menu-visible {
-      transform: translateY(0);
+      transform: translateX(0);
       opacity: 1;
     }
     .menu-hidden {
-      transform: translateY(-10px);
+      transform: translateX(-100%);
       opacity: 0;
       pointer-events: none;
+    }
+    .mobile-menu-item {
+      animation: slideInMenu 0.3s ease-out forwards;
+      animation-delay: calc(var(--index) * 0.1s);
+      width: auto;
+      text-align: left;
+    }
+    @keyframes slideInMenu {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .hamburger {
+      position: relative;
+      width: 24px;
+      height: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #e8e8e8;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+    .hamburger:hover span {
+      background: #a855f7;
+    }
+    .hamburger:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.5);
     }
     .typing-text::after {
       content: '|';
@@ -134,8 +183,7 @@
       position: absolute;
       top: 100%;
       left: 0;
-      background-color: rgba(64, 0, 116, 0.313);
-      backdrop-filter: blur(10px);
+      background-color: rgba(60, 0, 116, 0.8);
       border-radius: 1rem;
       opacity: 0;
       transform: translateY(-10px);
@@ -161,33 +209,42 @@
       color: #a066ff;
       border-radius: 1rem;
     }
+    .mobile-dropdown-menu {
+      display: flex;
+      background-color: #18043ccb;
+      flex-direction: column;
+      margin-top: 0.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    .mobile-dropdown-menu.open {
+      max-height: 200px;
+      background-color: #18043ccb;
+    }
     .glass-card {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
     }
     @media (max-width: 639px) {
-      .glass-card {
+      .glass-card, .glass-nav, .faq-container, .mobile-menu, .dropdown-menu {
         backdrop-filter: none;
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.2);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
-    }
-    .project-overlay, .service-overlay {
-      opacity: 0;
-      background: linear-gradient(to top, rgba(48, 0, 116, 0.4), transparent);
-      transition: opacity 0.3s ease;
-    }
-    .project:hover .project-overlay, .service:hover .service-overlay {
-      opacity: 1;
-    }
-    .gradient-btn {
-      background: linear-gradient(to right, #a855f7, #f97316);
-      transition: background 0.3s ease;
-    }
-    .gradient-btn:hover {
-      background: linear-gradient(to right, #9333ea, #f59e0b);
+      .mobile-menu.menu-visible {
+        background: rgba(24, 4, 60, 0.8); /* #18043C with 70% opacity */
+      }
+      .mobile-menu-item {
+        text-align: left;
+        width: auto;
+      }
+      .mobile-dropdown-menu a {
+        text-align: left;
+        padding-left: 1.5rem; /* Increased indent for hierarchy */
+      }
     }
     .social-icon {
       transition: transform 0.1s ease, background-color 0.3s ease;
@@ -197,22 +254,6 @@
       transform: scale(1.2);
       background-color: rgba(168, 85, 247, 0.2);
       border-radius: 50%;
-    }
-    .form-input:focus {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(168, 85, 247, 0.3);
-    }
-    .service-image-container {
-      width: 100%;
-      height: 120px;
-      overflow: hidden;
-      margin-bottom: 1rem;
-    }
-    .service-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
     }
     .services-grid {
       display: grid;
@@ -235,7 +276,7 @@
         gap: 1.5rem;
         grid-column: 1 / -1;
       }
-      .services-grid .row-2 > a {
+      .services-grid .row-2 > div {
         flex: 0 1 auto;
         width: 33.3333%;
         max-width: 400px;
@@ -247,29 +288,26 @@
       }
     }
     .glass-nav {
-      background: transparent;
+      background: rgba(24, 4, 60, 0.4);
       transition: background-color 0.3s ease;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       width: 100%;
     }
     .glass-nav.scrolled {
-      background: rgba(45, 0, 101, 0.37);
-      backdrop-filter: blur(15px);
+      background: rgba(24, 4, 60, 0.5);
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
     @media (max-width: 767px) {
       .glass-nav {
-        backdrop-filter: none;
-        background: transparent;
+        background: rgba(24, 4, 60, 0.4);
       }
       .glass-nav.scrolled {
-        background: rgba(0, 0, 0, 0.34);
+        background: rgba(24, 4, 60, 0.5);
       }
     }
     .footer-glass {
-      background: #1b0543;
+      background: #18043C;
       backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
     }
     .footer-link {
       transition: color 0.3s ease, transform 0.3s ease;
@@ -287,6 +325,7 @@
     .carousel-track {
       display: flex;
       transition: transform 0.5s ease;
+      will-change: transform, opacity;
     }
     .carousel-track.no-transition {
       transition: none;
@@ -300,38 +339,36 @@
       .carousel-item {
         flex: 0 0 100%;
       }
-    }
-    .carousel-item.left {
-      opacity: 0.5;
-    }
-    .carousel-item.center {
-      opacity: 1;
-    }
-    .carousel-item.right {
-      opacity: 0.5;
-    }
-    .carousel-item.hidden {
-      display: none;
+      .carousel-item.left,
+      .carousel-item.right,
+      .carousel-item.hidden {
+        display: none;
+      }
+      .carousel-item.center {
+        display: block;
+        opacity: 1;
+      }
     }
     @media (min-width: 768px) {
+      .carousel-item.left {
+        opacity: 0.5;
+      }
+      .carousel-item.center {
+        opacity: 1;
+      }
+      .carousel-item.right {
+        opacity: 0.5;
+      }
       .carousel-item.hidden {
         display: block;
+        opacity: 0;
       }
     }
     .faq-container {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
       border-radius: 0.5rem;
       overflow: hidden;
-    }
-    @media (max-width: 639px) {
-      .faq-container {
-        backdrop-filter: none;
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
     }
     .faq-item {
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -367,7 +404,7 @@
       background: transparent;
     }
     .faq-answer.open {
-      max-height: 300px; /* Adjust as needed for content */
+      max-height: 300px;
       opacity: 1;
       padding: 1rem 1.5rem;
     }
@@ -385,6 +422,12 @@
       .logo-img {
         height: 2rem;
       }
+    }
+    .is-scrolling .animate-slide-in,
+    .is-scrolling .carousel-track,
+    .is-scrolling .hover-scale {
+      animation: none !important;
+      transition: none !important;
     }
   </style>
 </head>
@@ -426,16 +469,15 @@
       projects: [
         { name: "Law Firm Website", desc: "A professional website for a law firm showcasing their services.", img: "images/law.webp", link: "https://ypsyouknow.github.io/sonilawyers/" },
         { name: "Resort Website Demo", desc: "A website for Resort with booking facility and with dynamic interface.", img: "images/resort.webp", link: "https://devauradigital.github.io/resort/#home" },
-        { name: "Demolition Company Website", desc: "A website for a demolition company highlighting their projects.", img: "https://images.pexels.com/photos/159306/construction-site-build-construction-work-159306.jpeg", link: "https://www.demolitionexperts.in/" }
+        { name: "Demolition Company Website", desc: "A website for a demolition company highlighting their projects.", img: "images/demolition.webp", link: "https://www.demolitionexperts.in/" }
       ],
       testimonials: [
         { quote: "DevAura transformed our online presence with a stunning website that perfectly captures our brand.", author: "Pankaj Soni", role: "Owner, Soni Lawyers " },
-        { quote: "Our online presence has never been stronger—DevAura delivered a visually stunning and strategically crafted website.", author: "Anthony", role: "Owner, AGS London Gardner" },
         { quote: "The tailored software developed by DevAura significantly enhanced the way we manage our day-to-day operations.", author: "Gaurang Vora", role: "Owner, Gaurang Vora and Associates" },
+        { quote: "Our online presence has never been stronger—DevAura delivered a visually stunning and strategically crafted website.", author: "Anthony", role: "Owner, AGS London Gardner" },
         { quote: "The Website looks Lovely and very interactive.", author: "Saintstan", role: "Owner, Big Dream Farm" }
       ],
       faqs: [
-        
         { question: "What types of websites can DevAura build?", answer: "We specialize in a wide range of websites, including eCommerce platforms with payment integration, corporate websites that showcase your business professionally, personal and creative portfolios, and fully custom web applications tailored to your specific industry needs. Whether you're a startup, small business, or enterprise, we build scalable and user-friendly digital solutions."},
         { question: "Can DevAura help improve my website's SEO?", answer: "Absolutely! Our SEO services include in-depth keyword research, technical SEO audits, on-page optimization (meta tags, headings, content structure), link-building strategies, and performance tracking using tools like Google Analytics and Search Console. We focus on both short-term visibility and long-term ranking growth."},
         { question: "How long does it take to develop a custom website solution?", answer: "The timeline depends on the scope and complexity of the project. On average, a custom website takes 1 to 3 months, which includes planning, design, development, testing, and revisions. We provide weekly progress updates and collaborate closely with you throughout the development process." },
@@ -445,46 +487,51 @@
       ]
     };
 
-    const smoothScrollTo = (targetY, duration = 1200) => {
-      const startY = window.scrollY;
-      const distance = targetY - startY;
-      const startTime = performance.now();
+    const debounce = (func, wait) => {
+      let timeout;
+      return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(null, args), wait);
+      };
+    };
 
-      const easeInOutQuad = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-
-      const scroll = (currentTime) => {
-        const timeElapsed = currentTime - startTime;
-        const progress = Math.min(timeElapsed / duration, 1);
-        const ease = easeInOutQuad(progress);
-        window.scrollTo(0, startY + distance * ease);
-
-        if (progress < 1) {
-          requestAnimationFrame(scroll);
+    const throttle = (func, limit) => {
+      let inThrottle;
+      return (...args) => {
+        if (!inThrottle) {
+          func.apply(null, args);
+          inThrottle = true;
+          setTimeout(() => (inThrottle = false), limit);
         }
       };
-
-      requestAnimationFrame(scroll);
     };
 
     const NavBar = () => {
       const [isMenuOpen, setIsMenuOpen] = useState(false);
       const [currentSection, setCurrentSection] = useState('home');
+      const [openDropdown, setOpenDropdown] = useState(false);
       const menuRef = useRef(null);
-      const touchStartY = useRef(0);
+      const touchStartX = useRef(0);
       const isSwiping = useRef(false);
 
       const toggleMenu = (e) => {
         if (e) e.stopPropagation();
         setIsMenuOpen(prev => !prev);
+        if (!isMenuOpen) setOpenDropdown(false);
+      };
+
+      const toggleDropdown = (e) => {
+        e.stopPropagation();
+        setOpenDropdown(prev => !prev);
       };
 
       const handleNavClick = (sectionId) => {
         const element = document.getElementById(sectionId);
         if (element) {
-          const targetY = element.getBoundingClientRect().top + window.scrollY;
-          smoothScrollTo(targetY, 1200);
+          element.scrollIntoView({ behavior: 'smooth' });
           setCurrentSection(sectionId);
           setIsMenuOpen(false);
+          setOpenDropdown(false);
         }
       };
 
@@ -492,36 +539,43 @@
         const handleClickOutside = (event) => {
           if (isMenuOpen && menuRef.current && !menuRef.current.contains(event.target)) {
             setIsMenuOpen(false);
+            setOpenDropdown(false);
           }
         };
 
         const handleTouchStart = (e) => {
           if (!isMenuOpen) return;
-          touchStartY.current = e.touches[0].clientY;
+          touchStartX.current = e.touches[0].clientX;
           isSwiping.current = true;
         };
 
-        const handleTouchMove = (e) => {
+        const handleTouchMove = throttle((e) => {
           if (!isMenuOpen || !isSwiping.current) return;
-          const touchCurrentY = e.touches[0].clientY;
-          if (touchCurrentY > touchStartY.current) {
+          const touchCurrentX = e.touches[0].clientX;
+          if (touchCurrentX > touchStartX.current) {
             e.preventDefault();
           }
-        };
+        }, 100);
 
         const handleTouchEnd = (e) => {
           if (!isMenuOpen || !isSwiping.current) return;
-          const touchEndY = e.changedTouches[0].clientY;
-          const swipeDistance = touchEndY - touchStartY.current;
-          if (swipeDistance > 50) setIsMenuOpen(false);
+          const touchEndX = e.changedTouches[0].clientX;
+          const swipeDistance = touchStartX.current - touchEndX;
+          if (swipeDistance < -50) {
+            setIsMenuOpen(false);
+            setOpenDropdown(false);
+          }
           isSwiping.current = false;
         };
 
         const handleKeyDown = (e) => {
-          if (e.key === 'Escape' && isMenuOpen) setIsMenuOpen(false);
+          if (e.key === 'Escape' && isMenuOpen) {
+            setIsMenuOpen(false);
+            setOpenDropdown(false);
+          }
         };
 
-        const handleScroll = () => {
+        const handleScroll = debounce(() => {
           try {
             const sections = ['home', 'services', 'projects', 'testimonials', 'faq', 'contact'];
             const scrollPosition = window.scrollY + 100;
@@ -543,7 +597,7 @@
           } catch (error) {
             console.error('Scroll handler error:', error);
           }
-        };
+        }, 100);
 
         document.addEventListener('click', handleClickOutside);
         document.addEventListener('touchstart', handleTouchStart);
@@ -613,32 +667,69 @@
               ))}
             </div>
             <button
-              className="md:hidden text-gray-100 hover:text-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-400"
+              className="md:hidden text-gray-100 hover:text-purple-400 focus:outline-none"
               onClick={toggleMenu}
               aria-label="Toggle menu"
               aria-expanded={isMenuOpen}
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"} />
-              </svg>
+              <div className={`hamburger ${isMenuOpen ? 'open' : ''}`}>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
             </button>
           </div>
           <div ref={menuRef} className={`md:hidden mobile-menu ${isMenuOpen ? 'menu-visible' : 'menu-hidden'}`}>
-            <div className="flex flex-wrap justify-around py-4 px-4 space-x-4">
-              {['Home', 'Services', 'Projects', 'Testimonials', 'FAQ', 'Contact'].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => handleNavClick(item.toLowerCase())}
-                  className={`text-gray-100 hover:text-purple-400 text-base font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400 ${
-                    currentSection === item.toLowerCase() ? 'text-purple-400' : ''
-                  }`}
-                  tabIndex={isMenuOpen ? 0 : -1}
-                  aria-current={currentSection === item.toLowerCase() ? 'page' : undefined}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
+            {['Home', 'Services', 'Projects', 'Testimonials', 'FAQ', 'Contact'].map((item, index) => (
+              <div key={item} className="mobile-menu-item" style={{ '--index': index }}>
+                {item === 'Services' ? (
+                  <div className="w-full">
+                    <button
+                      onClick={toggleDropdown}
+                      className={`w-full text-gray-100 hover:text-purple-400 text-lg font-medium transition-all duration-200 py-2 text-left`}
+                      aria-expanded={openDropdown}
+                      aria-controls="mobile-services-dropdown"
+                    >
+                      Services
+                      <svg
+                        className={`inline-block w-4 h-4 ml-2 transform transition-transform ${openDropdown ? 'rotate-180' : ''}`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    <div
+                      id="mobile-services-dropdown"
+                      className={`mobile-dropdown-menu ${openDropdown ? 'open' : ''}`}
+                    >
+                      {data.services.map((service, idx) => (
+                        <a
+                          key={idx}
+                          href={`service-detail.html?service=${encodeURIComponent(service.title)}`}
+                          className="text-gray-200 hover:text-purple-400 text-base py-1 block text-left"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          {service.title}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => handleNavClick(item.toLowerCase())}
+                    className={`w-full text-gray-100 hover:text-purple-400 text-lg font-medium transition-all duration-200 py-2 text-left focus:outline-none focus:ring-2 focus:ring-purple-400 ${
+                      currentSection === item.toLowerCase() ? 'text-purple-400' : ''
+                    }`}
+                    tabIndex={isMenuOpen ? 0 : -1}
+                    aria-current={currentSection === item.toLowerCase() ? 'page' : undefined}
+                  >
+                    {item}
+                  </button>
+                )}
+              </div>
+            ))}
           </div>
         </nav>
       );
@@ -677,9 +768,8 @@
               className="w-full h-full object-cover absolute inset-0 z-0"
             />
             <div className="absolute inset-0 z-0"></div>
-            <div id="particles-js" className="absolute inset-0 opacity-30 z-0"></div>
             <div className="absolute inset-0 flex items-center justify-center z-10">
-              <div className="max-w-5xl mx-auto px-4 animate-slide-in">
+              <div className="max-w-5xl mx-auto px-4">
                 <h2 className="text-4xl sm:text-7xl font-extrabold mb-6 drop-shadow-lg text-white">Empowering Your <br/> Business Growth</h2>
                 <p className="text-lg sm:text-xl mb-8 typing-text text-gray-100">{text}</p>
                 <div className="flex justify-center">
@@ -700,20 +790,17 @@
     };
 
     const Services = () => (
-      <section id="services" className="py-20" style={{ backgroundColor: '#18043C' }}>
+      <section id="services" className="py-20" style={{ backgroundColor: 'var(--primary-bg)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-white mb-16 animate-slide-in">Our Services</h2>
+          <h2 className="text-4xl font-bold text-center text-white mb-16">Our Services</h2>
           <div className="services-grid">
             {data.services.slice(0, 3).map((service, index) => (
               <div
                 key={index}
-                className={`rounded-xl shadow-lg glass-card overflow-hidden hover-scale animate-slide-in animate-slide-in-delay-${index} service`}
+                className={`group relative rounded-xl shadow-lg glass-card overflow-hidden hover-scale`}
               >
                 <a href={`service-detail.html?service=${encodeURIComponent(service.title)}`} rel="noopener noreferrer">
                   <img src={service.icon} alt={service.title} className="w-full h-48 object-cover" />
-                  <div className="service-overlay absolute inset-0 flex items-center justify-center">
-                    <span className="text-white font-semibold bg-purple-500 px-4 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">View Service</span>
-                  </div>
                   <div className="p-6">
                     <h3 className="text-xl font-semibold text-purple-400 mb-3">{service.title}</h3>
                     <p className="text-gray-100 text-base">{service.desc}</p>
@@ -725,18 +812,15 @@
               {data.services.slice(3).map((service, index) => (
                 <div
                   key={index + 3}
-                  className={`rounded-xl shadow-lg glass-card overflow-hidden hover-scale animate-slide-in animate-slide-in-delay-${index + 3} service`}
+                  className={`group relative rounded-xl shadow-lg glass-card overflow-hidden hover-scale`}
                 >
                   <a href={`service-detail.html?service=${encodeURIComponent(service.title)}`} rel="noopener noreferrer">
                     <img src={service.icon} alt={service.title} className="w-full h-48 object-cover" />
-                    <div className="service-overlay absolute inset-0 flex items-center justify-center">
-                      <span className="text-white font-semibold bg-purple-500 px-4 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">View Service</span>
-                    </div>
                     <div className="p-6">
                       <h3 className="text-xl font-semibold text-purple-400 mb-3">{service.title}</h3>
                       <p className="text-gray-100 text-base">{service.desc}</p>
                     </div>
-                </a>
+                  </a>
                 </div>
               ))}
             </div>
@@ -746,20 +830,17 @@
     );
 
     const Projects = () => (
-      <section id="projects" className="py-20" style={{ backgroundColor: '#21074D' }}>
+      <section id="projects" className="py-20" style={{ backgroundColor: 'var(--secondary-bg)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-white mb-16 animate-slide-in">Our Projects</h2>
+          <h2 className="text-4xl font-bold text-center text-white mb-16">Our Projects</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {data.projects.map((project, index) => (
               <div
                 key={index}
-                className={`rounded-xl shadow-lg glass-card overflow-hidden hover-scale animate-slide-in animate-slide-in-delay-${index} project`}
+                className={`group relative rounded-xl shadow-lg glass-card overflow-hidden hover-scale`}
               >
                 <a href={project.link} target="_blank" rel="noopener noreferrer">
                   <img src={project.img} alt={project.name} className="w-full h-48 object-cover" />
-                  <div className="project-overlay absolute inset-0 flex items-center justify-center">
-                    <span className="text-white font-semibold bg-purple-500 px-4 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">View Project</span>
-                  </div>
                   <div className="p-6">
                     <h3 className="text-xl font-semibold text-purple-400 mb-3">{project.name}</h3>
                     <p className="text-gray-100 text-base">{project.desc}</p>
@@ -862,16 +943,20 @@
         const prevIndex = currentIndex - 1;
         const nextIndex = currentIndex + 1;
 
-        if (index === prevIndex) return 'carousel-item left';
-        if (index === currentIndex) return 'carousel-item center';
-        if (index === nextIndex) return 'carousel-item right';
-        return 'carousel-item hidden';
+        if (window.innerWidth < 768) {
+          return index === currentIndex ? 'carousel-item center' : 'carousel-item';
+        } else {
+          if (index === prevIndex) return 'carousel-item left';
+          if (index === currentIndex) return 'carousel-item center';
+          if (index === nextIndex) return 'carousel-item right';
+          return 'carousel-item hidden';
+        }
       };
 
       return (
-        <section id="testimonials" className="py-20" style={{ backgroundColor: '#18043C' }}>
+        <section id="testimonials" className="py-20" style={{ backgroundColor: 'var(--primary-bg)' }}>
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-4xl font-bold text-center text-white mb-16 animate-slide-in">
+            <h2 className="text-4xl font-bold text-center text-white mb-16">
               What Our Clients Say
             </h2>
             <div
@@ -882,7 +967,7 @@
             >
               <div
                 className={`carousel-track ${!isTransitioning ? 'no-transition' : ''}`}
-                style={{ transform: `translateX(-${(currentIndex - 1) * 33.3333}%)` }}
+                style={{ transform: `translateX(-${(currentIndex - 1) * (window.innerWidth < 768 ? 100 : 33.3333)}%)` }}
               >
                 {extendedTestimonials.map((testimonial, index) => (
                   <div
@@ -944,9 +1029,9 @@
       };
 
       return (
-        <section id="faq" className="py-20" style={{ backgroundColor: '#21074D' }}>
+        <section id="faq" className="py-20" style={{ backgroundColor: 'var(--secondary-bg)' }}>
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-4xl font-bold text-center text-white mb-16 animate-slide-in">
+            <h2 className="text-4xl font-bold text-center text-white mb-16">
               Frequently Asked Questions
             </h2>
             <div className="faq-container">
@@ -1058,10 +1143,10 @@
       };
 
       return (
-        <section id="contact" className="py-20" style={{ backgroundColor: '#18043C' }}>
+        <section id="contact" className="py-20" style={{ backgroundColor: 'var(--primary-bg)' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              <div className="animate-slide-in">
+              <div>
                 <h3 className="text-2xl text-purple-400 font-semibold font-weight: 600;">Get in Touch - Transform Your Business Digitally</h3><br/>
                 <p className="text-gray-300 mb-4 text-lg">
                   Looking for Custom Website, Software, or Creative Design Solutions? <br/><br/>
@@ -1073,10 +1158,10 @@
                   🔍 SEO Services to Boost Online Visibility<br/>
                   💬 24/7 Client Support<br/><br/>
                   💡 Let's build your digital future—together.<br/><br/>
-                  📩 Contact DevAura Today — Your Partner in Smart Development & Creative Design Excellence
+                  📩 Contact DevAura Today — Your Partner in Smart Development and Creative Design Excellence.
                 </p>
               </div>
-              <div className="animate-slide-in">
+              <div>
                 <div className="space-y-5">
                   <h2 className="text-4xl font-bold text-white mb-4 text-center">Contact Us</h2>
                   <div>
@@ -1141,7 +1226,7 @@
       <footer className="footer-glass text-gray-300 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="animate-slide-in">
+            <div>
               <div className="flex items-center mb-6">
                 <img src="logo.png" alt="DevAura Digital Logo" className="logo-img footer-logo" />
               </div>
@@ -1149,7 +1234,7 @@
                 DevAura is a leading digital solutions provider, specializing in innovative SEO, software, and web development. We empower startups and businesses with custom solutions to boost online presence.
               </p>
             </div>
-            <div className="animate-slide-in animate-slide-in-delay-1">
+            <div>
               <h3 className="text-2xl font-semibold text-gray-100 mb-6">Our Services</h3>
               <ul className="text-gray-300 text-base space-y-2">
                 {data.services.map((service, index) => (
@@ -1164,7 +1249,7 @@
                 ))}
               </ul>
             </div>
-            <div className="animate-slide-in animate-slide-in-delay-2">
+            <div>
               <h3 className="text-2xl font-semibold text-gray-100 mb-6">Get in Touch</h3>
               <p className="text-gray-300 text-base mb-4">
                 <span className="font-semibold">Email:</span> <a href="mailto:devauradigital@gmail.com" className="text-purple-400 hover:underline footer-link">devauradigital@gmail.com</a>
@@ -1192,7 +1277,7 @@
             </div>
           </div>
           <div className="mt-6 pt-6 border-t border-gray-700 text-center">
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-400 text-base">
               © {new Date().getFullYear()} DevAura. All rights reserved. Subject to Ahmedabad jurisdiction only.
             </p>
           </div>
@@ -1202,11 +1287,39 @@
 
     const App = () => {
       const [showTopBtn, setShowTopBtn] = useState(false);
+
       useEffect(() => {
-        const handleScroll = () => setShowTopBtn(window.scrollY > 300);
+        let isScrolling;
+        const handleScroll = () => {
+          setShowTopBtn(window.scrollY > 300);
+          document.body.classList.add('is-scrolling');
+          clearTimeout(isScrolling);
+          isScrolling = setTimeout(() => {
+            document.body.classList.remove('is-scrolling');
+          }, 150);
+        };
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('animate-slide-in');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        document.querySelectorAll('.animate-slide-in').forEach((el) => observer.observe(el));
+
         window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+          observer.disconnect();
+        };
       }, []);
+
       return (
         <div>
           <NavBar />
@@ -1219,7 +1332,7 @@
           <Footer />
           {showTopBtn && (
             <button
-              onClick={() => smoothScrollTo(0, 1200)}
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="fixed bottom-4 right-4 bg-orange-500 text-white p-3 rounded-full shadow-lg hover:bg-orange-600"
               aria-label="Back to top"
             >
