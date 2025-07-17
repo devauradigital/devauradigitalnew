@@ -15,20 +15,20 @@
   <meta name="robots" content="index, follow">
   <meta property="og:title" content="DevAura Digital: Our Projects">
   <meta property="og:description" content="Discover DevAura Digital's portfolio of innovative website and software projects.">
-  <meta property="og:image" content="devauralogo.png">
+  <meta property="og:image" content="logo.png">
   <meta property="og:url" content="https://www.devauradigital.com/projects.html">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="DevAura Digital: Our Projects">
   <meta name="twitter:description" content="Explore our portfolio of innovative website and software projects at DevAura Digital.">
-  <meta name="twitter:image" content="devauralogo.png">
+  <meta name="twitter:image" content="logo.png">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "DevAura Digital",
     "url": "https://www.devauradigital.com",
-    "logo": "https://www.devauradigital.com/devauralogo.png",
+    "logo": "https://www.devauradigital.com/logo.png",
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+91-7859966310",
@@ -47,60 +47,96 @@
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.5/babel.min.js" defer></script>
   <script src="https://cdn.tailwindcss.com" defer></script>
   <style>
+    :root {
+      --primary-bg: #18043C;
+      --secondary-bg: #21074D;
+    }
     html {
-      scroll-behavior: auto;
+      scroll-behavior: smooth;
       scroll-padding-top: 80px;
     }
     body {
       font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #18043C;
+      background-color: var(--primary-bg);
     }
     h1, h2, h3 {
       font-family: 'Outfit', sans-serif;
     }
-    .animate-slide-in {
-      animation: slideIn 0.8s ease-out forwards;
-    }
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-slide-in-delay-0 { animation-delay: 0s; }
-    .animate-slide-in-delay-1 { animation-delay: 0.2s; }
-    .animate-slide-in-delay-2 { animation-delay: 0.4s; }
-    .animate-slide-in-delay-3 { animation-delay: 0.6s; }
-    .animate-slide-in-delay-4 { animation-delay: 0.8s; }
-    .animate-slide-in-delay-5 { animation-delay: 1.0s; }
-    .animate-slide-in-delay-6 { animation-delay: 1.2s; }
-    .animate-slide-in-delay-7 { animation-delay: 1.4s; }
     .hover-scale {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .hover-scale:hover {
+    .group:hover .hover-scale[href] {
       transform: scale(1.05) rotate(1deg);
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     }
     .mobile-menu {
-      position: absolute;
-      top: 100%;
+      position: fixed;
+      top: 65px;
       left: 0;
-      width: 100%;
-      background: rgba(31, 41, 55, 0.7);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      width: 60%;
+      height: calc(100vh - 65px);
+      background: rgba(24, 4, 60, 0.8);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
       z-index: 100;
       opacity: 0;
-      transform: translateY(-10%);
+      transform: translateX(-100%);
       transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
     }
     .menu-visible {
-      transform: translateY(0);
+      transform: translateX(0);
       opacity: 1;
     }
     .menu-hidden {
-      transform: translateY(-10px);
+      transform: translateX(-100%);
       opacity: 0;
       pointer-events: none;
+    }
+    .mobile-menu-item {
+      animation: slideInMenu 0.3s ease-out forwards;
+      animation-delay: calc(var(--index) * 0.1s);
+      width: auto;
+      text-align: left;
+    }
+    @keyframes slideInMenu {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .hamburger {
+      position: relative;
+      width: 24px;
+      height: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #e8e8e8;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+    .hamburger:hover span {
+      background: #a855f7;
+    }
+    .hamburger:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.5);
     }
     .nav-link {
       position: relative;
@@ -125,8 +161,7 @@
       position: absolute;
       top: 100%;
       left: 0;
-      background-color: rgba(64, 0, 116, 0.313);
-      backdrop-filter: blur(10px);
+      background-color: rgba(60, 0, 116, 0.8);
       border-radius: 1rem;
       opacity: 0;
       transform: translateY(-10px);
@@ -135,7 +170,7 @@
       min-width: 200px;
       pointer-events: none;
     }
-    .dropdown-menu.opacity-100 {
+    .dropdown:hover .dropdown-menu {
       opacity: 1;
       transform: translateY(0);
       pointer-events: auto;
@@ -147,11 +182,23 @@
       transition: background-color 0.2s ease, color 0.2s ease;
       border-radius: 1rem;
     }
-    .dropdown-menu a:hover,
-    .dropdown-menu a:focus {
+    .dropdown-menu a:hover {
       background-color: rgba(141, 92, 255, 0.2);
       color: #a066ff;
       border-radius: 1rem;
+    }
+    .mobile-dropdown-menu {
+      display: flex;
+      background-color: #18043ccb;
+      flex-direction: column;
+      margin-top: 0.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    .mobile-dropdown-menu.open {
+      max-height: 200px;
+      background-color: #18043ccb;
     }
     .glass-card {
       background: rgba(255, 255, 255, 0.05);
@@ -159,12 +206,32 @@
       backdrop-filter: blur(10px);
     }
     @media (max-width: 639px) {
-      .glass-card {
+      .glass-card, .glass-nav, .mobile-menu, .dropdown-menu {
         backdrop-filter: none;
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.2);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
+      .mobile-menu.menu-visible {
+        background: rgba(24, 4, 60, 0.8);
+      }
+      .mobile-menu-item {
+        text-align: left;
+        width: auto;
+      }
+      .mobile-dropdown-menu a {
+        text-align: left;
+        padding-left: 1.5rem;
+      }
+    }
+    .social-icon {
+      transition: transform 0.1s ease, background-color 0.3s ease;
+      border-radius: 50%;
+    }
+    .social-icon:hover {
+      transform: scale(1.2);
+      background-color: rgba(168, 85, 247, 0.2);
+      border-radius: 50%;
     }
     .project-overlay {
       opacity: 0;
@@ -175,47 +242,33 @@
       opacity: 1;
     }
     .glass-nav {
-      background: transparent;
+      background: rgba(24, 4, 60, 0.4);
       transition: background-color 0.3s ease;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       width: 100%;
     }
     .glass-nav.scrolled {
-      background: rgba(45, 0, 101, 0.37);
-      backdrop-filter: blur(15px);
+      background: rgba(24, 4, 60, 0.5);
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
     @media (max-width: 767px) {
       .glass-nav {
-        backdrop-filter: none;
-        background: transparent;
+        background: rgba(24, 4, 60, 0.4);
       }
       .glass-nav.scrolled {
-        background: rgba(0, 0, 0, 0.34);
+        background: rgba(24, 4, 60, 0.5);
       }
     }
     .footer-glass {
-      background: #1b0543;
+      background: #18043C;
       backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
     }
     .footer-link {
       transition: color 0.3s ease, transform 0.3s ease;
     }
-    .footer-link:hover,
-    .footer-link:focus {
+    .footer-link:hover {
       color: #a855f7;
       transform: translateX(5px);
-    }
-    .social-icon {
-      transition: transform 0.1s ease, background-color 0.3s ease;
-      border-radius: 50%;
-    }
-    .social-icon:hover,
-    .social-icon:focus {
-      transform: scale(1.2);
-      background-color: rgba(168, 85, 247, 0.2);
-      border-radius: 50%;
     }
     .logo-img {
       height: 2.5rem;
@@ -230,35 +283,36 @@
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
-      border-radius: 1rem;
-      overflow: hidden;
     }
     @media (max-width: 639px) {
       .coming-soon {
         backdrop-filter: none;
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.2);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
     }
-    .back-arrow {
-      transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-      padding: 0.5rem 1rem;
-      border-radius: .7rem;
-      background: rgba(168, 85, 247, 0.1);
-      border: 1px solid rgba(168, 85, 247, 0.3);
+    .animate-on-load {
+      animation: fadeIn 0.8s ease-out forwards;
+      opacity: 0;
     }
-    .back-arrow:hover,
-    .back-arrow:focus {
-      transform: translateX(-5px);
-      color: #ffffff;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    .back-arrow svg {
-      transition: transform 0.3s ease;
-    }
-    .back-arrow:hover svg,
-    .back-arrow:focus svg {
-      transform: scale(1.1);
+    .animate-on-load-delay-0 { animation-delay: 0s; }
+    .animate-on-load-delay-1 { animation-delay: 0.2s; }
+    .animate-on-load-delay-2 { animation-delay: 0.4s; }
+    .animate-on-load-delay-3 { animation-delay: 0.6s; }
+    .animate-on-load-delay-4 { animation-delay: 0.8s; }
+    .animate-on-load-delay-5 { animation-delay: 1.0s; }
+    .animate-on-load-delay-6 { animation-delay: 1.2s; }
+    .animate-on-load-delay-7 { animation-delay: 1.4s; }
+    @media (prefers-reduced-motion: reduce) {
+      .animate-on-load {
+        animation: none !important;
+        opacity: 1;
+      }
     }
   </style>
 </head>
@@ -299,36 +353,59 @@
       projects: [
         { name: "Law Firm Website", desc: "A professional website for a law firm showcasing their services.", img: "images/law.webp", link: "https://ypsyouknow.github.io/sonilawyers/" },
         { name: "Resort Website Demo", desc: "A website for Resort with booking facility and with dynamic interface.", img: "images/resort.webp", link: "https://devauradigital.github.io/resort/#home" },
-        { name: "Demolition Company Website", desc: "A website for a demolition company highlighting their projects.", img: "https://images.pexels.com/photos/159306/construction-site-build-construction-work-159306.jpeg", link: "https://www.demolitionexperts.in/" },
+        { name: "Demolition Company Website", desc: "A website for a demolition company highlighting their projects.", img: "images/demolition.webp", link: "https://www.demolitionexperts.in/" },
         { name: "Vegetable Farm", desc: "A fully-featured online vegetable store with secure payment integration.", img: "images/farm.webp", link: "https://devauradigital.github.io/farm/"},
         { name: "Portfolio Website", desc: "A sleek portfolio for a creative professional showcasing their work (Coming Soon).", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085", link: "#" }
       ]
     };
 
+    const debounce = (func, wait) => {
+      let timeout;
+      return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(null, args), wait);
+      };
+    };
+
+    const throttle = (func, limit) => {
+      let inThrottle;
+      return (...args) => {
+        if (!inThrottle) {
+          func.apply(null, args);
+          inThrottle = true;
+          setTimeout(() => (inThrottle = false), limit);
+        }
+      };
+    };
+
     const NavBar = () => {
       const [isMenuOpen, setIsMenuOpen] = useState(false);
-      const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+      const [currentSection, setCurrentSection] = useState('projects');
+      const [openDropdown, setOpenDropdown] = useState(false);
       const menuRef = useRef(null);
-      const dropdownRef = useRef(null);
-      const touchStartY = useRef(0);
+      const touchStartX = useRef(null);
       const isSwiping = useRef(false);
 
       const toggleMenu = (e) => {
         if (e) e.stopPropagation();
         setIsMenuOpen(prev => !prev);
+        if (!isMenuOpen) setOpenDropdown(false);
       };
 
-      const toggleDropdown = () => {
-        setIsDropdownOpen(prev => !prev);
+      const toggleDropdown = (e) => {
+        e.stopPropagation();
+        setOpenDropdown(prev => !prev);
       };
 
-      const handleKeyDown = (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          toggleDropdown();
-        }
-        if (e.key === 'Escape' && isDropdownOpen) {
-          setIsDropdownOpen(false);
+      const handleNavClick = (sectionId) => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+          setCurrentSection(sectionId);
+          setIsMenuOpen(false);
+          setOpenDropdown(false);
+        } else {
+          window.location.href = `index.html#${sectionId}`;
         }
       };
 
@@ -336,67 +413,81 @@
         const handleClickOutside = (event) => {
           if (isMenuOpen && menuRef.current && !menuRef.current.contains(event.target)) {
             setIsMenuOpen(false);
-          }
-          if (isDropdownOpen && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-            setIsDropdownOpen(false);
+            setOpenDropdown(false);
           }
         };
 
         const handleTouchStart = (e) => {
           if (!isMenuOpen) return;
-          touchStartY.current = e.touches[0].clientY;
+          touchStartX.current = e.touches[0].clientX;
           isSwiping.current = true;
         };
 
-        const handleTouchMove = (e) => {
+        const handleTouchMove = throttle((e) => {
           if (!isMenuOpen || !isSwiping.current) return;
-          const touchCurrentY = e.touches[0].clientY;
-          if (touchCurrentY > touchStartY.current) {
+          const touchCurrentX = e.touches[0].clientX;
+          if (touchCurrentX > touchStartX.current) {
             e.preventDefault();
           }
-        };
+        }, 100);
 
         const handleTouchEnd = (e) => {
           if (!isMenuOpen || !isSwiping.current) return;
-          const touchEndY = e.changedTouches[0].clientY;
-          const swipeDistance = touchEndY - touchStartY.current;
-          if (swipeDistance > 50) setIsMenuOpen(false);
+          const touchEndX = e.changedTouches[0].clientX;
+          const swipeDistance = touchStartX.current - touchEndX;
+          if (swipeDistance < -50) {
+            setIsMenuOpen(false);
+            setOpenDropdown(false);
+          }
           isSwiping.current = false;
         };
 
-        const handleKeyDownEscape = (e) => {
-          if (e.key === 'Escape') {
+        const handleKeyDown = (e) => {
+          if (e.key === 'Escape' && isMenuOpen) {
             setIsMenuOpen(false);
-            setIsDropdownOpen(false);
+            setOpenDropdown(false);
           }
         };
 
-        const handleScroll = () => {
-          const navbar = document.querySelector('.navbar');
-          if (navbar) {
-            if (window.scrollY > 50) {
-              navbar.classList.add('scrolled');
-            } else {
-              navbar.classList.remove('scrolled');
+        const handleScroll = debounce(() => {
+          try {
+            const sections = ['projects', 'cta'];
+            const scrollPosition = window.scrollY + 100;
+            for (const section of sections) {
+              const element = document.getElementById(section);
+              if (element && scrollPosition >= element.offsetTop && scrollPosition < element.offsetTop + element.offsetHeight) {
+                setCurrentSection(section);
+                break;
+              }
             }
+            const navbar = document.querySelector('.navbar');
+            if (navbar) {
+              if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+              } else {
+                navbar.classList.remove('scrolled');
+              }
+            }
+          } catch (error) {
+            console.error('Scroll handler error:', error);
           }
-        };
+        }, 100);
 
         document.addEventListener('click', handleClickOutside);
         document.addEventListener('touchstart', handleTouchStart);
         document.addEventListener('touchmove', handleTouchMove, { passive: false });
         document.addEventListener('touchend', handleTouchEnd);
-        document.addEventListener('keydown', handleKeyDownEscape);
+        document.addEventListener('keydown', handleKeyDown);
         window.addEventListener('scroll', handleScroll);
         return () => {
           document.removeEventListener('click', handleClickOutside);
           document.removeEventListener('touchstart', handleTouchStart);
           document.removeEventListener('touchmove', handleTouchMove);
           document.removeEventListener('touchend', handleTouchEnd);
-          document.removeEventListener('keydown', handleKeyDownEscape);
+          document.removeEventListener('keydown', handleKeyDown);
           window.removeEventListener('scroll', handleScroll);
         };
-      }, [isMenuOpen, isDropdownOpen]);
+      }, [isMenuOpen]);
 
       return (
         <nav className="glass-nav navbar shadow-lg fixed top-0 z-50 w-full" role="navigation" aria-label="Main navigation">
@@ -405,31 +496,32 @@
               <img src="logo.png" alt="DevAura Digital Logo" className="logo-img" width="40" height="40" loading="lazy" />
             </div>
             <div className="hidden md:flex space-x-10 items-center">
-              <a href="index.html" className="text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold nav-link">Home</a>
-              <div className="relative dropdown" ref={dropdownRef}>
+              <button
+                onClick={() => handleNavClick('home')}
+                className={`text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold nav-link ${
+                  currentSection === 'home' ? 'text-purple-400' : ''
+                }`}
+                aria-current={currentSection === 'home' ? 'page' : undefined}
+              >
+                Home
+              </button>
+              <div className="relative dropdown">
                 <button
-                  className="text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold nav-link"
-                  aria-haspopup="true"
-                  aria-expanded={isDropdownOpen}
-                  onClick={toggleDropdown}
-                  onKeyDown={handleKeyDown}
+                  onClick={() => handleNavClick('services')}
+                  className={`text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold nav-link ${
+                    currentSection === 'services' ? 'text-purple-400' : ''
+                  }`}
+                  aria-current={currentSection === 'services' ? 'page' : undefined}
                 >
                   Services
                 </button>
-                <div className={`dropdown-menu ${isDropdownOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : ''}`} role="menu">
+                <div className="dropdown-menu">
                   {data.services.map((service, index) => (
                     <a
                       key={index}
                       href={`service-detail.html?service=${encodeURIComponent(service.title)}`}
                       className="text-gray-100 hover:text-purple-400"
                       role="menuitem"
-                      tabIndex="0"
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          e.preventDefault();
-                          window.location.href = `service-detail.html?service=${encodeURIComponent(service.title)}`;
-                        }
-                      }}
                     >
                       {service.title}
                     </a>
@@ -437,44 +529,84 @@
                 </div>
               </div>
               {['Projects', 'Testimonials', 'FAQ', 'Contact'].map((item) => (
-                <a
+                <button
                   key={item}
-                  href={`index.html#${item.toLowerCase()}`}
+                  onClick={() => handleNavClick(item.toLowerCase())}
                   className={`text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold nav-link ${
-                    item === 'Projects' ? 'text-purple-400' : ''
+                    currentSection === item.toLowerCase() ? 'text-purple-400' : ''
                   }`}
+                  aria-current={currentSection === item.toLowerCase() ? 'page' : undefined}
                 >
                   {item}
-                </a>
+                </button>
               ))}
             </div>
             <button
-              className="md:hidden text-gray-100 hover:text-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-400"
+              className="md:hidden text-gray-100 hover:text-purple-400 focus:outline-none"
               onClick={toggleMenu}
               aria-label="Toggle menu"
               aria-expanded={isMenuOpen}
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"} />
-              </svg>
+              <div className={`hamburger ${isMenuOpen ? 'open' : ''}`}>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
             </button>
           </div>
           <div ref={menuRef} className={`md:hidden mobile-menu ${isMenuOpen ? 'menu-visible' : 'menu-hidden'}`} role="menu">
-            <div className="flex flex-wrap justify-around py-4 px-4 space-x-4">
-              {['Home', 'Services', 'Projects', 'Testimonials', 'FAQ', 'Contact'].map((item) => (
-                <a
-                  key={item}
-                  href={item === 'Home' ? 'index.html' : `index.html#${item.toLowerCase()}`}
-                  className={`text-gray-100 hover:text-purple-400 text-base font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400 ${
-                    item === 'Projects' ? 'text-purple-400' : ''
-                  }`}
-                  tabIndex={isMenuOpen ? 0 : -1}
-                  role="menuitem"
-                >
-                  {item}
-                </a>
-              ))}
-            </div>
+            {['Home', 'Services', 'Projects', 'Testimonials', 'FAQ', 'Contact'].map((item, index) => (
+              <div key={item} className="mobile-menu-item" style={{ '--index': index }}>
+                {item === 'Services' ? (
+                  <div className="w-full">
+                    <button
+                      onClick={toggleDropdown}
+                      className={`w-full text-gray-100 hover:text-purple-400 text-lg font-medium transition-all duration-200 py-2 text-left`}
+                      aria-expanded={openDropdown}
+                      aria-controls="mobile-services-dropdown"
+                    >
+                      Services
+                      <svg
+                        className={`inline-block w-4 h-4 ml-2 transform transition-transform ${openDropdown ? 'rotate-180' : ''}`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    <div
+                      id="mobile-services-dropdown"
+                      className={`mobile-dropdown-menu ${openDropdown ? 'open' : ''}`}
+                    >
+                      {data.services.map((service, idx) => (
+                        <a
+                          key={idx}
+                          href={`service-detail.html?service=${encodeURIComponent(service.title)}`}
+                          className="text-gray-200 hover:text-purple-400 text-base py-1 block text-left"
+                          onClick={() => setIsMenuOpen(false)}
+                          role="menuitem"
+                        >
+                          {service.title}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => handleNavClick(item.toLowerCase())}
+                    className={`w-full text-gray-100 hover:text-purple-400 text-lg font-medium transition-all duration-200 py-2 text-left focus:outline-none focus:ring-2 focus:ring-purple-400 ${
+                      currentSection === item.toLowerCase() ? 'text-purple-400' : ''
+                    }`}
+                    tabIndex={isMenuOpen ? 0 : -1}
+                    role="menuitem"
+                    aria-current={currentSection === item.toLowerCase() ? 'page' : undefined}
+                  >
+                    {item}
+                  </button>
+                )}
+              </div>
+            ))}
           </div>
         </nav>
       );
@@ -521,12 +653,11 @@
         });
         document.head.appendChild(script);
 
-        const handleScroll = () => {
-          const threshold = Math.max(300, window.innerHeight * 0.5);
-          setShowTopBtn(window.scrollY > threshold);
-        };
-        window.addEventListener('scroll', handleScroll);
+        const handleScroll = debounce(() => {
+          setShowTopBtn(window.scrollY > 300);
+        }, 100);
 
+        window.addEventListener('scroll', handleScroll);
         return () => {
           document.head.removeChild(script);
           window.removeEventListener('scroll', handleScroll);
@@ -534,11 +665,11 @@
       }, []);
 
       return (
-        <section id="projects" className="py-20 pt-32" style={{ backgroundColor: '#21074D' }}>
+        <section id="projects" className="py-20 pt-32" style={{ backgroundColor: 'var(--secondary-bg)' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <a
               href="index.html"
-              className="inline-flex items-center text-gray-100 hover:text-purple-300 transition-all duration-300 back-arrow mb-6"
+              className="inline-flex items-center text-gray-100 hover:text-purple-400 transition-all duration-300 font-semibold hover:transform hover:-translate-x-[5px] mb-6 animate-on-load animate-on-load-delay-0"
               tabIndex="0"
             >
               <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -546,12 +677,12 @@
               </svg>
               Back to Home
             </a>
-            <h2 className="text-4xl font-bold text-center text-white mb-16 animate-slide-in">Our Projects</h2>
+            <h2 className="text-4xl font-bold text-center text-white mb-16 animate-on-load animate-on-load-delay-1">Our Projects</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {data.projects.map((project, index) => (
                 <div
                   key={index}
-                  className={`rounded-xl shadow-lg glass-card overflow-hidden hover-scale animate-slide-in animate-slide-in-delay-${index} project`}
+                  className={`rounded-xl shadow-lg glass-card overflow-hidden hover-scale project animate-on-load animate-on-load-delay-${index + 2}`}
                 >
                   <a
                     href={project.link}
@@ -578,7 +709,7 @@
                 </div>
               ))}
               <div
-                className={`rounded-xl shadow-lg glass-card overflow-hidden hover-scale animate-slide-in animate-slide-in-delay-${data.projects.length} coming-soon`}
+                className={`rounded-xl shadow-lg glass-card overflow-hidden hover-scale coming-soon animate-on-load animate-on-load-delay-${data.projects.length + 2}`}
               >
                 <div className="p-6 h-full flex flex-col justify-center items-center">
                   <h3 className="text-4xl font-semibold text-purple-400 mb-3">Coming Soon</h3><br/>
@@ -603,16 +734,16 @@
     };
 
     const CallToAction = () => (
-      <section id="cta" className="py-10" style={{ backgroundColor: '#18043C' }}>
+      <section id="cta" className="py-20 animate-on-load animate-on-load-delay-7" style={{ backgroundColor: 'var(--primary-bg)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="glass-card p-8 rounded-xl shadow-lg hover-scale animate-slide-in animate-slide-in-delay-2 text-center">
+          <div className="glass-card p-8 rounded-xl shadow-lg hover-scale text-center">
             <h2 className="text-3xl font-bold text-gray-100 mb-4">Ready to Transform Your Business?</h2>
-            <p className="text-gray-300 text-sm mb-6">Contact us today to schedule a free consultation and discover how our services can drive your success.</p>
+            <p className="text-gray-300 text-base mb-6">Contact us today to schedule a free consultation and discover how our services can drive your success.</p>
             <a
               href="https://forms.gle/ZDdqZJDd6hqtDS6p7"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-orange-500 text-white px-8 py-4 rounded-full hover:bg-orange-600 font-semibold transition-all duration-300 hover:shadow-lg"
+              className="bg-orange-500 text-white px-8 py-4 rounded-full font-semibold hover:bg-orange-600 transition-all duration-300 hover:shadow-lg"
             >
               Schedule a Consultation
             </a>
@@ -622,10 +753,10 @@
     );
 
     const Footer = () => (
-      <footer className="footer-glass text-gray-300 py-6">
+      <footer className="footer-glass text-gray-300 py-6 animate-on-load animate-on-load-delay-7">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="animate-slide-in">
+            <div className="animate-on-load animate-on-load-delay-7">
               <div className="flex items-center mb-6">
                 <img src="logo.png" alt="DevAura Digital Logo" className="logo-img" width="40" height="40" loading="lazy" />
               </div>
@@ -633,7 +764,7 @@
                 DevAura is a leading digital solutions provider, specializing in innovative SEO, software, and web development. We empower startups and businesses with custom solutions to boost online presence.
               </p>
             </div>
-            <div className="animate-slide-in animate-slide-in-delay-1">
+            <div className="animate-on-load animate-on-load-delay-7">
               <h3 className="text-2xl font-semibold text-gray-100 mb-6">Our Services</h3>
               <ul className="text-gray-300 text-base space-y-2">
                 {data.services.map((service, index) => (
@@ -648,7 +779,7 @@
                 ))}
               </ul>
             </div>
-            <div className="animate-slide-in animate-slide-in-delay-2">
+            <div className="animate-on-load animate-on-load-delay-7">
               <h3 className="text-2xl font-semibold text-gray-100 mb-6">Get in Touch</h3>
               <p className="text-gray-300 text-base mb-4">
                 <span className="font-semibold">Email:</span> <a href="mailto:devauradigital@gmail.com" className="text-purple-400 hover:underline footer-link">devauradigital@gmail.com</a>
@@ -676,7 +807,7 @@
             </div>
           </div>
           <div className="mt-6 pt-6 border-t border-gray-700 text-center">
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-400 text-base">
               © {new Date().getFullYear()} DevAura. All rights reserved. Subject to Ahmedabad jurisdiction only.
             </p>
           </div>
